@@ -1,0 +1,35 @@
+{
+ "$schema": "https://qooxdoo.org/schema/Manifest-2-0-0.json",
+  "info" :
+  {
+    "name" : "demo.Miner",
+
+    "summary" : "Qooxdoo Miner",
+    "description" : "Qooxdoo Miner Game",
+
+    "homepage" : "https://github.com/goldim/demo.Miner",
+
+    "license" : "MIT license",
+    "authors" : [
+  {
+    "name": "Dmitrii Zolotov (goldim)",
+    "email": "zolotovdy@yandex.ru"
+  }
+],
+
+    "version" : "0.1.0"
+  },
+
+  "provides" :
+  {
+    "namespace"   : "demo.Miner",
+    "encoding"    : "utf-8",
+    "class"       : "source/class",
+    "resource"    : "source/resource",
+    "translation" : "source/translation"
+  },
+
+  "requires": {
+    "@qooxdoo/framework": "^7.4.2"
+  }
+}
