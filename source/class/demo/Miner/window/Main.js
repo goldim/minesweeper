@@ -17,7 +17,7 @@ qx.Class.define("demo.Miner.window.Main", {
 
     construct(){
         // noinspection JSAnnotator
-        super("Miner", "demo/Miner/miner.png");
+        super("Miner");
         this.set({
             allowMaximize: false
         });
