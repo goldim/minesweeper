@@ -12,12 +12,18 @@ qx.Class.define("demo.Miner.status.State", {
     extend: qx.ui.form.Button,
 
     construct(){
+        const width = 24;
         // noinspection JSAnnotator
-        super("", "@MaterialIcons/sentiment_satisfied_alt/24");
-        this.set({width: 25});
+        super(null, `@MaterialIcons/sentiment_satisfied_alt/${width}`);
+        this.setWidth(width);
+
     },
 
     members: {
-
+        state: {
+            init: "good",
+            check: ["fail", "good", "done"],
+            event: "changeState"
+        }
     }
 });

@@ -21,9 +21,9 @@ qx.Class.define("demo.Miner.status.Bar", {
 
     members: {
         __createComponents() {
-            this.add(new demo.Miner.status.Counter(),  { flex: 1 });
-            this.add(new demo.Miner.status.State(),  { flex: 1 });
-            this.add(new demo.Miner.status.Counter(),  { flex: 1 });
+            this.add(new demo.Miner.status.Counter());
+            this.add(new demo.Miner.status.State());
+            this.add(new demo.Miner.status.Counter());
         }
     }
 });

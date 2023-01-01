@@ -8,14 +8,22 @@
 
 ************************************************************************ */
 
+/**
+ * This is an example of a contrib library, providing a very special button
+ * @asset(demo/Miner/*)
+ */
 qx.Class.define("demo.Miner.window.Main", {
     extend: qx.ui.window.Window,
 
     construct(){
         // noinspection JSAnnotator
-        super();
+        super("Miner", "demo/Miner/miner.png");
+        this.set({
+            allowMaximize: false
+        });
         this.setLayout(new qx.ui.layout.Dock());
         const topContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());
+        topContainer.setPadding(10);
         topContainer.add(this.__createToolBar());
         topContainer.add(new demo.Miner.status.Bar());
         this.add(topContainer, {edge: "north"});
