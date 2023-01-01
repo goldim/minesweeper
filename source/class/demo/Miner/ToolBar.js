@@ -18,6 +18,10 @@ qx.Class.define("demo.Miner.ToolBar", {
         this.__createComponents();
     },
 
+    events: {
+        "changeDifficulty": "qx.event.type.Data"
+    },
+
     members: {
         __createComponents(){
             this.add(this.__createGameMenu());
@@ -32,13 +36,28 @@ qx.Class.define("demo.Miner.ToolBar", {
 
         getGameMenu() {
             const menu = new qx.ui.menu.Menu();
-
-            const newButton = new qx.ui.menu.Button(
-                "New"
-            );
-
+            const newButton = new qx.ui.menu.Button("New");
             menu.add(newButton);
 
+            const difficultyButton = new qx.ui.menu.Button("Difficulty");
+            difficultyButton.setMenu(this.__createDifficultyMenu());
+            menu.add(difficultyButton);
+
+            return menu;
+        },
+
+        __createDifficultyMenu(){
+            const menu = new qx.ui.menu.Menu();
+            const low = new qx.ui.menu.RadioButton("Low", null);
+            const medium = new qx.ui.menu.RadioButton("Medium", null)
+            const hard = new qx.ui.menu.RadioButton("Hard", null);
+            menu.add(low);
+            menu.add(medium);
+            menu.add(hard);
+            const difficultyGroup = new qx.ui.form.RadioGroup(low, medium, hard);
+            difficultyGroup.addListener("changeValue", function(e){
+                this.fireDataEvent("changeDifficulty", e.getData().getLabel());
+            }, this);
             return menu;
         },
 

@@ -23,11 +23,14 @@ qx.Class.define("demo.Miner.window.Main", {
         });
         this.setLayout(new qx.ui.layout.Dock());
         const topContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());
-        topContainer.setPadding(10);
-        topContainer.add(this.__createToolBar());
+        const toolbar = this.__createToolBar();
+        topContainer.add(toolbar);
         topContainer.add(new demo.Miner.status.Bar());
         this.add(topContainer, {edge: "north"});
-        this.__createBoard();
+        const board = this.__createBoard();
+        toolbar.addListener("changeDifficulty", function(e){
+            board.setDifficulty(e.getData());
+        }, this);
     },
 
     members: {
@@ -36,7 +39,9 @@ qx.Class.define("demo.Miner.window.Main", {
         },
 
         __createBoard(){
-            this.add(new demo.Miner.Board().set({width: 250, height: 250}), {edge: "center"});
+            const board = new demo.Miner.Board()
+            this.add(board, {edge: "center"});
+            return board;
         }
     }
 });
