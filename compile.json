@@ -19,7 +19,7 @@
   "applications": [
     {
       "class": "demo.Miner.demo.Application",
-      "theme": "demo.Miner.theme.Theme",
+      "theme": "qx.theme.Classic",
       "name": "demo.Miner"
     }
   ]

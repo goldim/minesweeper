@@ -8,23 +8,22 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.Board", {
+qx.Class.define("demo.Miner.status.Bar", {
     extend: qx.ui.container.Composite,
 
     construct(){
         // noinspection JSAnnotator
         super();
-        this.setLayout(new qx.ui.layout.Grid());
-        this.fillBoard();
+        this.setLayout(new qx.ui.layout.HBox());
+
+        this.__createComponents();
     },
 
     members: {
-        fillBoard(){
-            for (let i = 0; i < 10; i++){
-                for (let j = 0; j < 10; j++){
-                    this.add(new qx.ui.form.Button().set({width: 25, height: 25}), {row: j, column: i});
-                }
-            }
+        __createComponents() {
+            this.add(new demo.Miner.status.Counter(),  { flex: 1 });
+            this.add(new demo.Miner.status.State(),  { flex: 1 });
+            this.add(new demo.Miner.status.Counter(),  { flex: 1 });
         }
     }
 });

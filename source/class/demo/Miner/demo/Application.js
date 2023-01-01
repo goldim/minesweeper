@@ -32,14 +32,14 @@ qx.Class.define("demo.Miner.demo.Application", {
       super.main();
 
       // Enable logging in debug variant
-      if (qx.core.Environment.get("qx.debug"))
-      {
+      if (qx.core.Environment.get("qx.debug")){
         // support native logging capabilities, e.g. Firebug for Firefox
         qx.log.appender.Native;
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
       }
 
+      qx.theme.iconfont.LoadMaterialIcons;
       const manager = new qx.ui.window.Manager();
       const desktop = new qx.ui.window.Desktop(manager);
       const mainWin = new demo.Miner.window.Main();
