@@ -11,8 +11,7 @@
 /**
  * This is the main application class of "demo.Miner"
  */
-qx.Class.define("demo.Miner.demo.Application",
-{
+qx.Class.define("demo.Miner.demo.Application", {
   extend : qx.application.Standalone,
 
   /*
@@ -21,18 +20,16 @@ qx.Class.define("demo.Miner.demo.Application",
   *****************************************************************************
   */
 
-  members :
-  {
+  members :  {
     /**
-     * This method contains the initial application code and gets called 
+     * This method contains the initial application code and gets called
      * during startup of the application
-     * 
+     *
      * @lint ignoreDeprecated(alert)
      */
-    main : function()
-    {
+    main(){
       // Call super class
-      this.base(arguments);
+      super.main();
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))
@@ -43,25 +40,7 @@ qx.Class.define("demo.Miner.demo.Application",
         qx.log.appender.Console;
       }
 
-      /*
-      -------------------------------------------------------------------------
-        Below is your actual application code...
-      -------------------------------------------------------------------------
-      */
-
-      // Create a button
-      var button1 = new demo.Miner.Button("Very special button", "demo/Miner/test.png");
-
-      // Document is the application root
-      var doc = this.getRoot();
-
-      // Add button to document at fixed coordinates
-      doc.add(button1, {left: 100, top: 50});
-
-      // Add an event listener
-      button1.addListener("execute", function(e) {
-        alert("Hello World!");
-      });
+      this.getRoot().add(new qx.ui.form.Button("AAA"));
     }
   }
 });
