@@ -28,6 +28,9 @@ qx.Class.define("demo.Miner.window.Main", {
         topContainer.add(new demo.Miner.status.Bar());
         this.add(topContainer, {edge: "north"});
         const board = this.__createBoard();
+        board.addListener("gameOver", function(){
+            toolbar.gameOver();
+        }, this);
         toolbar.addListener("changeDifficulty", function(e){
             board.setDifficulty(e.getData());
         }, this);
@@ -39,7 +42,7 @@ qx.Class.define("demo.Miner.window.Main", {
         },
 
         __createBoard(){
-            const board = new demo.Miner.Board()
+            const board = new demo.Miner.Board();
             this.add(board, {edge: "center"});
             return board;
         }

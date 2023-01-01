@@ -21,15 +21,24 @@ qx.Class.define("demo.Miner.status.Bar", {
 
     members: {
         __createComponents() {
-            this.__createComponent("left", "west", new demo.Miner.status.Counter());
-            this.__createComponent("center", "center", new demo.Miner.status.State());
-            this.__createComponent("right", "east", new demo.Miner.status.Counter());
+            const mineCounter = this.__mineCounter = new demo.Miner.status.Counter();
+            this.__createComponent("left", "west", mineCounter);
+
+            const state = this.__state = new demo.Miner.status.State();
+            this.__createComponent("center", "center", state);
+
+            const flagCounter = this.__flagCounter = new demo.Miner.status.Counter()
+            this.__createComponent("right", "east", flagCounter);
         },
 
         __createComponent(alignX, edge, component){
             const block = new qx.ui.container.Composite(new qx.ui.layout.HBox().set({alignX}));
             block.add(component);
             this.add(block, {edge});
+        },
+
+        gameOver(){
+            this.__state.setStatus("fail");
         }
     }
 });

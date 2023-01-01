@@ -18,6 +18,11 @@ qx.Class.define("demo.Miner.Board", {
         this.setDifficulty("Low");
     },
 
+    events: {
+        "gameOver": "qx.event.type.Event",
+        "finished": "qx.event.type.Event"
+    },
+
     members: {
         setDifficulty(difficulty){
             this.removeAll();
@@ -37,9 +42,19 @@ qx.Class.define("demo.Miner.Board", {
         fillBoard(colCount, rowCount){
             for (let i = 0; i < rowCount; i++){
                 for (let j = 0; j < colCount; j++){
-                    this.add(new qx.ui.form.Button().set({width: 25, height: 25}), {row: j, column: i});
+                    this.add(this.__createCell(), {row: j, column: i});
                 }
             }
+        },
+
+        __createCell(){
+            const cell = new demo.Miner.Cell().set({width: 32, height: 32});
+            cell.addListener("blast", this._onBlast, this);
+            return cell;
+        },
+
+        _onBlast(){
+            this.fireEvent("gameOver");
         }
     }
 });

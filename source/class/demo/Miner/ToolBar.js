@@ -62,8 +62,7 @@ qx.Class.define("demo.Miner.ToolBar", {
         },
 
         __createAboutMenu(){
-            const menu = new qx.ui.toolbar.MenuButton("Help");
-            return menu;
+            return new qx.ui.toolbar.MenuButton("Help");
         }
     }
 });
