@@ -70,6 +70,7 @@ qx.Class.define("demo.Miner.status.Bar", {
                     case "start":
                         this.__state.setStatus("good");
                         this.__seconds = -1;
+                        this.updateTime();
                         this.__timer.start();
                         break;
                     case "over":
