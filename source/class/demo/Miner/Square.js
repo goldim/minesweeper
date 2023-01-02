@@ -53,6 +53,12 @@ qx.Class.define("demo.Miner.Square", {
             apply: "_applyBlocked"
         },
 
+        underQuestion: {
+            init: false,
+            check: "Boolean",
+            apply: "_applyUnderQuestion"
+        },
+
         blasted: {
             init: false,
             check: "Boolean"
@@ -83,6 +89,14 @@ qx.Class.define("demo.Miner.Square", {
             this.setValue(9);
         },
 
+        _applyUnderQuestion(value){
+            if (value){
+                this.setIcon("@MaterialIcons/question_mark/16");
+            } else {
+                this.setIcon(null);
+            }
+        },
+
         _applyFlagged(value){
             const game = demo.Miner.Game.getInstance();
             if (value){
@@ -107,7 +121,12 @@ qx.Class.define("demo.Miner.Square", {
 
         _onRightClick(){
             if (!this.getBlocked()) {
-                if (!(demo.Miner.Game.getInstance().getMinesLeft() === 0 && !this.getFlagged())) {
+                if (this.getFlagged()){
+                    this.setFlagged(false);
+                    this.setUnderQuestion(true);
+                } else if (this.getUnderQuestion()){
+                    this.setUnderQuestion(false);
+                } else if (!(demo.Miner.Game.getInstance().getMinesLeft() === 0 && !this.getFlagged())) {
                     this.setFlagged(!this.getFlagged());
                 }
             }
