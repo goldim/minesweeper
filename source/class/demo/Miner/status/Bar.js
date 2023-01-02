@@ -19,12 +19,24 @@ qx.Class.define("demo.Miner.status.Bar", {
         this.__createComponents();
     },
 
+    events: {
+        "newGame": "qx.event.type.Event"
+    },
+
     members: {
+        refresh(){
+            this.__state.setStatus("good");
+        },
+
         __createComponents() {
             const mineCounter = this.__mineCounter = new demo.Miner.status.Counter();
             this.__createComponent("left", "west", mineCounter);
 
             const state = this.__state = new demo.Miner.status.State();
+            state.addListener("execute", function(){
+                this.refresh();
+                this.fireEvent("newGame");
+            }, this);
             this.__createComponent("center", "center", state);
 
             const flagCounter = this.__flagCounter = new demo.Miner.status.Counter()

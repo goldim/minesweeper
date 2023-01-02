@@ -25,11 +25,15 @@ qx.Class.define("demo.Miner.window.Main", {
         const topContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());
         const toolbar = this.__createToolBar();
         topContainer.add(toolbar);
-        topContainer.add(new demo.Miner.status.Bar());
+        const statusBar = new demo.Miner.status.Bar();
+        topContainer.add(statusBar);
         this.add(topContainer, {edge: "north"});
         const board = this.__createBoard();
         board.addListener("gameOver", function(){
-            toolbar.gameOver();
+            statusBar.gameOver();
+        }, this);
+        statusBar.addListener("newGame", function(){
+            board.refresh();
         }, this);
         toolbar.addListener("changeDifficulty", function(e){
             board.setDifficulty(e.getData());

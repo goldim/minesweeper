@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.Cell", {
+qx.Class.define("demo.Miner.Square", {
     extend: qx.ui.form.Button,
 
     construct(){
@@ -27,11 +27,20 @@ qx.Class.define("demo.Miner.Cell", {
 
         mined: {
             init: false,
-            check: "Boolean",
-            apply: "_applyFlagged"
+            check: "Boolean"
         },
 
         value: {
+            init: 0,
+            check: "Integer"
+        },
+
+        x: {
+            init: 0,
+            check: "Integer"
+        },
+
+        y: {
             init: 0,
             check: "Integer"
         }
@@ -40,6 +49,10 @@ qx.Class.define("demo.Miner.Cell", {
     events: {
         "blast": "qx.event.type.Event",
         "open": "qx.event.type.Event"
+    },
+
+    statics: {
+        CELL_COLORS: [ "", "blue", "green", "red", "purple", "yellow" ]
     },
 
     members: {
@@ -54,7 +67,7 @@ qx.Class.define("demo.Miner.Cell", {
         _onExecute(){
             if (!this.getFlagged()){
                 if (this.getMined()){
-                    this.setIcon("@MaterialIcons/emergency/16");
+                    console.log("mined");
                     this.fireEvent("blast");
                 } else {
                     this.fireEvent("open");
