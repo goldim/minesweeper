@@ -12,10 +12,9 @@ qx.Class.define("demo.Miner.status.State", {
     extend: qx.ui.form.Button,
 
     construct(){
-        const width = 24;
         // noinspection JSAnnotator
         super(null);
-        this.setWidth(width);
+        this.setGap(0);
     },
 
     properties: {
@@ -36,6 +35,7 @@ qx.Class.define("demo.Miner.status.State", {
                 success: "sentiment_very_satisfied"
             };
             this.setIcon(`@MaterialIcons/${table[value]}/${width}`);
+            this.getChildControl("icon").set({scale: true, width: 24, height: 24});
         }
     }
 });
