@@ -16,13 +16,12 @@ qx.Class.define("demo.Miner.status.State", {
         // noinspection JSAnnotator
         super(null);
         this.setWidth(width);
-        this.initStatus("good");
     },
 
     properties: {
         status: {
-            deferredInit: true,
-            check: ["fail", "good", "finished"],
+            init: "start",
+            check: ["start", "over", "success"],
             event: "changeState",
             apply: "_applyStatus"
         }
@@ -30,20 +29,13 @@ qx.Class.define("demo.Miner.status.State", {
 
     members: {
         _applyStatus(value){
-            let icon;
             const width = this.getWidth();
-            switch (value){
-                case "good":
-                    icon = `sentiment_satisfied_alt`;
-                    break;
-                case "fail":
-                    icon = `sentiment_very_dissatisfied`;
-                    break;
-                case "finished":
-                    icon = `sentiment_very_satisfied`;
-                    break;
-            }
-            this.setIcon(`@MaterialIcons/${icon}/${width}`);
+            const table = {
+                start: "sentiment_satisfied_alt",
+                over: "sentiment_very_dissatisfied",
+                success: "sentiment_very_satisfied"
+            };
+            this.setIcon(`@MaterialIcons/${table[value]}/${width}`);
         }
     }
 });

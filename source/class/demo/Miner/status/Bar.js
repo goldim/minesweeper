@@ -47,10 +47,6 @@ qx.Class.define("demo.Miner.status.Bar", {
     members: {
         __seconds: null,
 
-        refresh(){
-            this.__state.setStatus("good");
-        },
-
         updateTime(){
             this.__seconds++;
             const minutes = Math.floor(this.__seconds / 60);
@@ -61,14 +57,16 @@ qx.Class.define("demo.Miner.status.Bar", {
         },
 
         __createComponents() {
+            const game = demo.Miner.Game.getInstance();
+
             const minesLeftLabel = new qx.ui.basic.Atom();
-            demo.Miner.Game.getInstance().bind("minesLeft", minesLeftLabel, "label", {converter: this.constructor.addTrailingZeros});
+            game.bind("minesLeft", minesLeftLabel, "label", {converter: this.constructor.addTrailingZeros});
             this.__createComponent("left", "west", minesLeftLabel);
 
             const state = this.__state = new demo.Miner.status.State();
+            game.bind("state", state, "status");
             state.addListener("execute", function(){
-                this.refresh();
-                demo.Miner.Game.getInstance().startNew();
+                game.startNew();
             }, this);
             this.__createComponent("center", "center", state);
 
@@ -76,23 +74,21 @@ qx.Class.define("demo.Miner.status.Bar", {
             this.bind("time", timeLabel, "label");
             this.__createComponent("right", "east", timeLabel);
 
-            const game = demo.Miner.Game.getInstance();
+            game.addListener("changeDifficulty", function() {
+                this.__seconds = -1;
+            }, this);
+
             game.addListener("changeState", function(e){
                 const state = e.getData();
                 switch (state){
                     case "start":
-                        this.__state.setStatus("good");
                         this.__seconds = -1;
                         this.updateTime();
                         this.__timer.start();
                         break;
                     case "over":
-                        this.__timer.stop();
-                        this.__state.setStatus("fail");
-                        break;
                     case "success":
                         this.__timer.stop();
-                        this.__state.setStatus("finished");
                         break;
                 }
             }, this)

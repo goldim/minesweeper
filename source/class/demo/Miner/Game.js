@@ -25,8 +25,10 @@ qx.Class.define("demo.Miner.Game", {
         },
 
         difficulty: {
-            init: "Low",
-            check: ["Low", "Medium", "Hard"],
+            init: "low",
+            check: function(value) {
+                return demo.Miner.Game.getDifficulties().includes(value);
+            },
             event: "changeDifficulty",
             apply: "_applyDifficulty"
         },
@@ -40,30 +42,34 @@ qx.Class.define("demo.Miner.Game", {
     },
 
     statics: {
-        DIFFICULTY_MAP: {
-            Low: {
+        DIFFICULTY_OPTIONS: {
+            low: {
                 mineCount: 10,
                 colSize: 9,
                 rowSize: 9
             },
 
-            Medium: {
+            medium: {
                 mineCount: 40,
                 colSize: 16,
                 rowSize: 16
             },
 
-            Hard: {
+            hard: {
                 mineCount: 99,
                 colSize: 30,
                 rowSize: 16
             }
         },
 
-        SQUARE_COLORS: [ "", "blue", "green", "red", "navy", "brown", "cyan", "black", "white"],
+        SQUARE_COLORS: ["", "blue", "green", "red", "navy", "brown", "cyan", "black", "white"],
 
         getSquareColorByCode(code){
             return demo.Miner.Game.SQUARE_COLORS[code];
+        },
+
+        getDifficulties(){
+            return Object.keys(demo.Miner.Game.DIFFICULTY_OPTIONS);
         }
     },
 
@@ -75,6 +81,7 @@ qx.Class.define("demo.Miner.Game", {
         },
 
         _applyDifficulty(){
+            this.setState("start");
             this.__updateMinesLeft();
         },
 
@@ -101,7 +108,7 @@ qx.Class.define("demo.Miner.Game", {
         },
 
         __extractFieldFromMap(difficulty){
-            return this.constructor.DIFFICULTY_MAP[this.getDifficulty()][difficulty];
+            return this.constructor.DIFFICULTY_OPTIONS[this.getDifficulty()][difficulty];
         },
 
         decreaseSpottedMinesByOne(){
