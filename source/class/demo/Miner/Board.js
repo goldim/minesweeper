@@ -19,15 +19,7 @@ qx.Class.define("demo.Miner.Board", {
         // noinspection JSAnnotator
         super();
         this.setLayout(new qx.ui.layout.Grid());
-        const game = demo.Miner.Game.getInstance();
-        game.addListener("changeDifficulty", function(){
-            this.update();
-        }, this);
-        game.addListener("changeState", function(e){
-            if (e.getData() === "start"){
-                this.update();
-            }
-        }, this);
+        this.__setupHandlers();
         this.update();
     },
 
@@ -40,11 +32,24 @@ qx.Class.define("demo.Miner.Board", {
     },
 
     members: {
+        __setupHandlers(){
+            const game = demo.Miner.Game.getInstance();
+            game.addListener("changeDifficulty", function(){
+                this.update();
+            }, this);
+            game.addListener("changeState", function(e){
+                if (e.getData() === "start"){
+                    this.update();
+                }
+            }, this);
+        },
+
         update(){
             const game = demo.Miner.Game.getInstance();
             this.__colSize = game.getColumnSize();
             this.__rowSize = game.getRowSize();
             this.__mineCount = game.getMineCount();
+            this.setBlocked(false);
             this.prepare();
         },
 
