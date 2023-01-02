@@ -37,45 +37,46 @@ qx.Class.define("demo.Miner.Board", {
 
             const options = {
                 Low: {
-                    count: 10,
-                    width: 9,
-                    height: 9
+                    mineCount: 10,
+                    colSize: 9,
+                    rowSize: 9
                 },
 
                 Medium: {
-                    count: 10,
-                    width: 16,
-                    height: 16
+                    mineCount: 10,
+                    colSize: 16,
+                    rowSize: 16
                 },
 
                 Hard: {
-                    count: 99,
-                    width: 30,
-                    height: 16
+                    mineCount: 99,
+                    colSize: 30,
+                    rowSize: 16
                 }
             };
 
             this.__difficulty = difficulty;
             const difficultyOptions = options[difficulty];
-            this.__width = difficultyOptions.width;
-            this.__height = difficultyOptions.height;
-            this.fillBoard(difficultyOptions.width, difficultyOptions.height);
-            this.generateMines(difficultyOptions.count, difficultyOptions.width, difficultyOptions.height);
+            this.__colSize = difficultyOptions.colSize;
+            this.__rowSize = difficultyOptions.rowSize;
+            this.fillBoard(difficultyOptions.colSize, difficultyOptions.rowSize);
+            this.generateMines(difficultyOptions.mineCount, difficultyOptions.colSize, difficultyOptions.rowSize);
+            this.evaluateValues();
         },
 
         fillBoard(colCount, rowCount){
-            for (let i = 0; i < rowCount; i++){
-                for (let j = 0; j < colCount; j++){
-                    this.add(this.__createSquare(i, j), {row: j, column: i});
+            for (let column = 0; column < colCount; column++){
+                for (let row = 0; row < rowCount; row++){
+                    this.add(this.__createSquare(column, row), {row, column});
                 }
             }
         },
 
-        generateMines(count, width, height){
+        generateMines(count, colSize, rowSize){
             while (count){
-                const i = this.randomInteger(0, height);
-                const j = this.randomInteger(0, width);
-                const square = this.getLayout().getCellWidget(i, j);
+                const column = this.randomInteger(0, colSize);
+                const row = this.randomInteger(0, rowSize);
+                const square = this.getLayout().getCellWidget(row, column);
                 if (!square.getMined()){
                     square.setMined(true);
                     count--;
@@ -84,14 +85,12 @@ qx.Class.define("demo.Miner.Board", {
         },
 
         showAllMines(){
-            console.log(this.__width, this.__height);
-            for (let i = 0; i < this.__width; i++){
-                for (let j = 0; j < this.__height; j++){
-                    const square = this.getLayout().getCellWidget(i, j);
-                    console.log(square, i, j);
+            for (let column = 0; column < this.__colSize; column++){
+                for (let row = 0; row < this.__rowSize; row++){
+                    const square = this.getLayout().getCellWidget(row, column);
                     if (square instanceof demo.Miner.Square && square.getMined()){
                         square.destroy();
-                        this.add(new qx.ui.basic.Atom(null, "demo/Miner/miner.png").set({width: 32, height: 32}), {row: i, column: j});
+                        this.add(new qx.ui.basic.Atom(null, "demo/Miner/miner.png").set({width: 32, height: 32}), {row, column});
                     }
                 }
             }
@@ -102,13 +101,35 @@ qx.Class.define("demo.Miner.Board", {
         },
 
         evaluateValues(){
-
+            for (let column = 0; column < this.__colSize; column++){
+                for (let row = 0; row < this.__rowSize; row++){
+                    const square = this.getLayout().getCellWidget(row, column);
+                    if (square instanceof demo.Miner.Square){
+                        const count = [
+                            {column: column + 1, row},
+                            {column, row: row + 1},
+                            {column: column + 1, row: row + 1},
+                            {column: column - 1, row},
+                            {column, row: row - 1},
+                            {column: column - 1, row: row - 1},
+                            {column: column - 1, row: row + 1},
+                            {column: column + 1, row: row - 1}
+                        ].filter(function(coords) { return this.checkIfMine(coords.column, coords.row) }, this).length;
+                        square.setValue(count);
+                    }
+                }
+            }
         },
 
-        __createSquare(x, y){
+        checkIfMine(column, row){
+            const square = this.getLayout().getCellWidget(row, column);
+            return square instanceof demo.Miner.Square && square.getMined();
+        },
+
+        __createSquare(column, row){
             const square = new demo.Miner.Square().set({width: 32, height: 32});
-            square.setX(x);
-            square.setY(y);
+            square.setColumnNo(column);
+            square.setRowNo(row);
             square.addListener("blast", this._onBlast, this);
             square.addListener("open", this._onOpen, this);
             return square;
@@ -116,11 +137,40 @@ qx.Class.define("demo.Miner.Board", {
 
         _onOpen(e){
             const square = e.getTarget();
-            const x = square.getX();
-            const y = square.getY();
-            const value = square.getValue();
+            const column = square.getColumnNo();
+            const row = square.getRowNo();
+            let value = square.getValue();
             square.destroy();
-            this.add(new qx.ui.basic.Atom(value.toString()).set({width: 32, height: 32}), {row: y, column: x});
+            if (!value){
+                value = "";
+                this.__attended = [];
+                this.openKeyIfZero(column, row);
+            } else {
+                this.add(new qx.ui.basic.Atom(value.toString()).set({width: 32, height: 32}), {row, column});
+            }
+        },
+
+        openKeyIfZero(column, row){
+            if (column < 0 || row < 0 || column === this.__colSize || row === this.__rowSize){
+                return;
+            }
+            if (this.__attended.some(coords => coords.column === column && coords.row === row)) return;
+            this.__attended.push({column, row});
+            const square = this.getLayout().getCellWidget(row, column);
+            if (square instanceof demo.Miner.Square){
+                if (square.getValue() === 0 && !square.getMined()){
+                    square.destroy();
+                    this.add(new qx.ui.basic.Atom(null).set({width: 32, height: 32}), {row, column});
+                } else if (square.getValue() > 0 && !square.getMined()){
+                    square.destroy();
+                    this.add(new qx.ui.basic.Atom(square.getValue().toString()).set({width: 32, height: 32}), {row, column});
+                    return;
+                }
+            }
+            this.openKeyIfZero(column - 1, row);
+            this.openKeyIfZero(column + 1, row);
+            this.openKeyIfZero(column, row + 1);
+            this.openKeyIfZero(column, row - 1);
         },
 
         _onBlast(){

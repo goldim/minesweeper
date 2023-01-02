@@ -27,7 +27,8 @@ qx.Class.define("demo.Miner.Square", {
 
         mined: {
             init: false,
-            check: "Boolean"
+            check: "Boolean",
+            apply: "_applyMined"
         },
 
         value: {
@@ -35,12 +36,12 @@ qx.Class.define("demo.Miner.Square", {
             check: "Integer"
         },
 
-        x: {
+        columnNo: {
             init: 0,
             check: "Integer"
         },
 
-        y: {
+        rowNo: {
             init: 0,
             check: "Integer"
         }
@@ -56,6 +57,10 @@ qx.Class.define("demo.Miner.Square", {
     },
 
     members: {
+        _applyMined(){
+            this.setValue(9);
+        },
+
         _applyFlagged(value){
             if (value){
                 this.setIcon("@MaterialIcons/flag/16");
@@ -67,7 +72,6 @@ qx.Class.define("demo.Miner.Square", {
         _onExecute(){
             if (!this.getFlagged()){
                 if (this.getMined()){
-                    console.log("mined");
                     this.fireEvent("blast");
                 } else {
                     this.fireEvent("open");
