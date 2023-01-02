@@ -22,6 +22,7 @@ qx.Class.define("demo.Miner.Square", {
         flagged: {
             init: false,
             check: "Boolean",
+            event: "changeFlagged",
             apply: "_applyFlagged"
         },
 
@@ -78,9 +79,12 @@ qx.Class.define("demo.Miner.Square", {
         },
 
         _applyFlagged(value){
+            const game = demo.Miner.Game.getInstance();
             if (value){
                 this.setIcon("@MaterialIcons/flag/16");
+                game.increaseSpottedMinesByOne();
             } else {
+                game.decreaseSpottedMinesByOne();
                 this.setIcon(null);
             }
         },
@@ -96,8 +100,10 @@ qx.Class.define("demo.Miner.Square", {
         },
 
         _onRightClick(){
-            if (!this.getBlocked()){
-                this.setFlagged(!this.getFlagged());
+            if (!this.getBlocked()) {
+                if (!(demo.Miner.Game.getInstance().getMinesLeft() === 0 && !this.getFlagged())) {
+                    this.setFlagged(!this.getFlagged());
+                }
             }
         }
     }

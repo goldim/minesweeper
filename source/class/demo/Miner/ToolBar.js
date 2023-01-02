@@ -33,6 +33,9 @@ qx.Class.define("demo.Miner.ToolBar", {
         getGameMenu() {
             const menu = new qx.ui.menu.Menu();
             const newButton = new qx.ui.menu.Button("New");
+            newButton.addListener("execute", function(){
+                demo.Miner.Game.getInstance().startNew();
+            }, this);
             menu.add(newButton);
 
             const difficultyButton = new qx.ui.menu.Button("Difficulty");

@@ -18,16 +18,24 @@ qx.Class.define("demo.Miner.Game", {
     },
 
     properties: {
+        minesLeft: {
+            init: 0,
+            check: "Integer",
+            event: "changeMinesLeft"
+        },
+
         difficulty: {
             init: "Low",
             check: ["Low", "Medium", "Hard"],
-            event: "changeDifficulty"
+            event: "changeDifficulty",
+            apply: "_applyDifficulty"
         },
 
         state: {
             init: "start",
             check: ["start", "over", "success"],
-            event: "changeState"
+            event: "changeState",
+            apply: "_applyState"
         }
     },
 
@@ -40,7 +48,7 @@ qx.Class.define("demo.Miner.Game", {
             },
 
             Medium: {
-                mineCount: 10,
+                mineCount: 40,
                 colSize: 16,
                 rowSize: 16
             },
@@ -52,7 +60,7 @@ qx.Class.define("demo.Miner.Game", {
             }
         },
 
-        SQUARE_COLORS: [ "", "blue", "green", "red", "purple", "yellow" ],
+        SQUARE_COLORS: [ "", "blue", "green", "red", "navy", "brown", "cyan", "black", "white"],
 
         getSquareColorByCode(code){
             return demo.Miner.Game.SQUARE_COLORS[code];
@@ -60,9 +68,19 @@ qx.Class.define("demo.Miner.Game", {
     },
 
     members: {
+        _applyState(state){
+            if (state === "over"){
+                this.setMinesLeft(0);
+            }
+        },
+
+        _applyDifficulty(){
+        },
+
         startNew(){
             this.setState("over");
             this.setState("start");
+            this.setMinesLeft(this.getMineCount());
         },
 
         getMineCount(){
@@ -79,6 +97,14 @@ qx.Class.define("demo.Miner.Game", {
 
         __extractFieldFromMap(difficulty){
             return this.constructor.DIFFICULTY_MAP[this.getDifficulty()][difficulty];
+        },
+
+        decreaseSpottedMinesByOne(){
+            this.setMinesLeft(this.getMinesLeft() + 1);
+        },
+
+        increaseSpottedMinesByOne(){
+            this.setMinesLeft(this.getMinesLeft() - 1);
         }
     }
 });

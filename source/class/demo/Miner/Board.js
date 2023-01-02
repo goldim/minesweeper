@@ -20,7 +20,6 @@ qx.Class.define("demo.Miner.Board", {
         super();
         this.setLayout(new qx.ui.layout.Grid());
         this.__setupHandlers();
-        this.update();
     },
 
     properties: {
@@ -45,11 +44,11 @@ qx.Class.define("demo.Miner.Board", {
         },
 
         update(){
+            this.resetBlocked();
             const game = demo.Miner.Game.getInstance();
             this.__colSize = game.getColumnSize();
             this.__rowSize = game.getRowSize();
             this.__mineCount = game.getMineCount();
-            this.setBlocked(false);
             this.prepare();
         },
 

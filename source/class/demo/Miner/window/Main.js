@@ -19,7 +19,8 @@ qx.Class.define("demo.Miner.window.Main", {
         // noinspection JSAnnotator
         super("Miner");
         this.set({
-            allowMaximize: false
+            allowMaximize: false,
+            resizable: [false, false, false, false]
         });
         this.setLayout(new qx.ui.layout.Dock());
         const topContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());
@@ -28,21 +29,7 @@ qx.Class.define("demo.Miner.window.Main", {
         const statusBar = new demo.Miner.status.Bar();
         topContainer.add(statusBar);
         this.add(topContainer, {edge: "north"});
-        const board = this.__createBoard();
-        board.addListener("gameOver", function(){
-            statusBar.gameOver();
-        }, this);
-
-        board.addListener("finished", function(){
-            statusBar.finish();
-        }, this);
-
-        statusBar.addListener("newGame", function(){
-            board.refresh();
-        }, this);
-        toolbar.addListener("changeDifficulty", function(e){
-            board.setDifficulty(e.getData());
-        }, this);
+        this.__createBoard();
     },
 
     members: {

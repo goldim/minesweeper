@@ -16,21 +16,41 @@ qx.Class.define("demo.Miner.status.Bar", {
         super();
         this.setLayout(new qx.ui.layout.Dock());
 
+        this.__timer = new qx.event.Timer(1000);
+        this.__timer.addListener("interval", this.updateTime, this);
+        this.__seconds = -1;
         this.__createComponents();
     },
 
-    events: {
-        "newGame": "qx.event.type.Event"
+    properties: {
+        time: {
+            init: "--:--",
+            check: "String",
+            event: "changeTime"
+        }
     },
 
     members: {
+        __seconds: null,
+
         refresh(){
             this.__state.setStatus("good");
         },
 
+        updateTime(){
+            this.__seconds++;
+            const minutes = Math.floor(this.__seconds / 60);
+            const minuteTrailingZero = minutes < 10 ? "0" : "";
+            const seconds = this.__seconds % 60;
+            const secondsTrailingZero = seconds < 10 ? "0" : "";
+            console.log(`${minuteTrailingZero}${minutes}:${secondsTrailingZero}${seconds}`, secondsTrailingZero);
+            this.setTime(`${minuteTrailingZero}${minutes}:${secondsTrailingZero}${seconds}`);
+        },
+
         __createComponents() {
-            const mineCounter = this.__mineCounter = new demo.Miner.status.Counter();
-            this.__createComponent("left", "west", mineCounter);
+            const minesLeftLabel = this.__minesLeftLabel = new qx.ui.basic.Atom();
+            demo.Miner.Game.getInstance().bind("minesLeft", minesLeftLabel, "label");
+            this.__createComponent("left", "west", minesLeftLabel);
 
             const state = this.__state = new demo.Miner.status.State();
             state.addListener("execute", function(){
@@ -39,8 +59,9 @@ qx.Class.define("demo.Miner.status.Bar", {
             }, this);
             this.__createComponent("center", "center", state);
 
-            const flagCounter = this.__flagCounter = new demo.Miner.status.Counter()
-            this.__createComponent("right", "east", flagCounter);
+            const timeLabel = this.__timeLabel = new qx.ui.basic.Atom();
+            this.bind("time", timeLabel, "label");
+            this.__createComponent("right", "east", timeLabel);
 
             const game = demo.Miner.Game.getInstance();
             game.addListener("changeState", function(e){
@@ -48,11 +69,15 @@ qx.Class.define("demo.Miner.status.Bar", {
                 switch (state){
                     case "start":
                         this.__state.setStatus("good");
+                        this.__seconds = -1;
+                        this.__timer.start();
                         break;
                     case "over":
+                        this.__timer.stop();
                         this.__state.setStatus("fail");
                         break;
                     case "success":
+                        this.__timer.stop();
                         this.__state.setStatus("finished");
                         break;
                 }

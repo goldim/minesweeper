@@ -47,6 +47,7 @@ qx.Class.define("demo.Miner.demo.Application", {
       mainWin.open();
       desktop.add(mainWin);
       this.getRoot().add(desktop, {width: "100%", height: "100%"});
+      demo.Miner.Game.getInstance().startNew();
     }
   }
 });
