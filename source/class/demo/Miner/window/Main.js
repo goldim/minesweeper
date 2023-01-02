@@ -32,6 +32,11 @@ qx.Class.define("demo.Miner.window.Main", {
         board.addListener("gameOver", function(){
             statusBar.gameOver();
         }, this);
+
+        board.addListener("finished", function(){
+            statusBar.finish();
+        }, this);
+
         statusBar.addListener("newGame", function(){
             board.refresh();
         }, this);

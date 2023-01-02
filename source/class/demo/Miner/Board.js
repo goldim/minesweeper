@@ -27,8 +27,17 @@ qx.Class.define("demo.Miner.Board", {
         "finished": "qx.event.type.Event"
     },
 
+    properties: {
+        blocked: {
+            init: false,
+            check: "Boolean",
+            apply: "_applyBlocked"
+        }
+    },
+
     members: {
         refresh(){
+            this.setBlocked(false);
             this.setDifficulty(this.__difficulty);
         },
 
@@ -59,17 +68,25 @@ qx.Class.define("demo.Miner.Board", {
             const difficultyOptions = options[difficulty];
             this.__colSize = difficultyOptions.colSize;
             this.__rowSize = difficultyOptions.rowSize;
-            this.fillBoard(difficultyOptions.colSize, difficultyOptions.rowSize);
+            this.__mineCount = difficultyOptions.mineCount;
+            this.fillBoard();
             this.generateMines(difficultyOptions.mineCount, difficultyOptions.colSize, difficultyOptions.rowSize);
             this.evaluateValues();
         },
 
-        fillBoard(colCount, rowCount){
-            for (let column = 0; column < colCount; column++){
-                for (let row = 0; row < rowCount; row++){
-                    this.add(this.__createSquare(column, row), {row, column});
+        _applyBlocked(blocked){
+            this.forEverySquare(function(row, column){
+                const square = this.getLayout().getCellWidget(row, column);
+                if (square instanceof demo.Miner.Square){
+                    square.setBlocked(blocked);
                 }
-            }
+            }.bind(this));
+        },
+
+        fillBoard(){
+            this.forEverySquare(function(column, row){
+                this.add(this.__createSquare(column, row), {row, column});
+            }.bind(this));
         },
 
         generateMines(count, colSize, rowSize){
@@ -84,41 +101,51 @@ qx.Class.define("demo.Miner.Board", {
             }
         },
 
+        __getSquareAroundCoords(column, row){
+            return [
+                {column: column + 1, row},
+                {column, row: row + 1},
+                {column: column + 1, row: row + 1},
+                {column: column - 1, row},
+                {column, row: row - 1},
+                {column: column - 1, row: row - 1},
+                {column: column - 1, row: row + 1},
+                {column: column + 1, row: row - 1}
+            ];
+        },
+
         showAllMines(){
-            for (let column = 0; column < this.__colSize; column++){
-                for (let row = 0; row < this.__rowSize; row++){
-                    const square = this.getLayout().getCellWidget(row, column);
-                    if (square instanceof demo.Miner.Square && square.getMined()){
-                        square.destroy();
-                        this.add(new qx.ui.basic.Atom(null, "demo/Miner/miner.png").set({width: 32, height: 32}), {row, column});
-                    }
+            this.forEverySquare(function(column, row){
+                const square = this.getLayout().getCellWidget(row, column);
+                if (square instanceof demo.Miner.Square && square.getMined()){
+                    square.destroy();
+                    this.add(this.__createMineLabel(), {row, column});
                 }
-            }
+            }.bind(this));
         },
 
         randomInteger(min, max) {
             return Math.floor(Math.random() * (max - min) + min);
         },
 
-        evaluateValues(){
+        forEverySquare(handler){
             for (let column = 0; column < this.__colSize; column++){
                 for (let row = 0; row < this.__rowSize; row++){
-                    const square = this.getLayout().getCellWidget(row, column);
-                    if (square instanceof demo.Miner.Square){
-                        const count = [
-                            {column: column + 1, row},
-                            {column, row: row + 1},
-                            {column: column + 1, row: row + 1},
-                            {column: column - 1, row},
-                            {column, row: row - 1},
-                            {column: column - 1, row: row - 1},
-                            {column: column - 1, row: row + 1},
-                            {column: column + 1, row: row - 1}
-                        ].filter(function(coords) { return this.checkIfMine(coords.column, coords.row) }, this).length;
-                        square.setValue(count);
-                    }
+                    handler(column, row);
                 }
             }
+        },
+
+        evaluateValues(){
+            this.forEverySquare(function(column, row){
+                const square = this.getLayout().getCellWidget(row, column);
+                if (square instanceof demo.Miner.Square){
+                    const count = this.__getSquareAroundCoords(column, row).filter(function(coords) {
+                        return this.checkIfMine(coords.column, coords.row)
+                    }, this).length;
+                    square.setValue(count);
+                }
+            }.bind(this));
         },
 
         checkIfMine(column, row){
@@ -146,12 +173,44 @@ qx.Class.define("demo.Miner.Board", {
                 this.__attended = [];
                 this.openKeyIfZero(column, row);
             } else {
-                this.add(new qx.ui.basic.Atom(value.toString()).set({width: 32, height: 32}), {row, column});
+                this.add(this.__createColoredLabel(value), {row, column});
+            }
+        },
+
+        __createColoredLabel(value){
+            const atom = new qx.ui.basic.Atom(value.toString()).set({width: 32, height: 32});
+            atom.setTextColor(demo.Miner.Square.CELL_COLORS[value]);
+            return atom;
+        },
+
+        __createEmptyLabel(){
+            return new qx.ui.basic.Atom(null).set({width: 32, height: 32});
+        },
+
+        __createMineLabel(){
+            return new qx.ui.basic.Atom(null, "demo/Miner/miner.png").set({width: 32, height: 32});
+        },
+
+        __checkOutOfBorders(column, row){
+            return column < 0 || row < 0 || column === this.__colSize || row === this.__rowSize;
+        },
+
+        __checkFinished(){
+            let countRevealedSquares = 0;
+            this.forEverySquare(function(column, row){
+                const square = this.getLayout().getCellWidget(row, column);
+                if (!(square instanceof demo.Miner.Square)) {
+                    countRevealedSquares++;
+                }
+            }.bind(this));
+            if (countRevealedSquares === (this.__colSize * this.__rowSize) - this.__mineCount){
+                this.setBlocked(true);
+                this.fireEvent("finished");
             }
         },
 
         openKeyIfZero(column, row){
-            if (column < 0 || row < 0 || column === this.__colSize || row === this.__rowSize){
+            if (this.__checkOutOfBorders(column, row)){
                 return;
             }
             if (this.__attended.some(coords => coords.column === column && coords.row === row)) return;
@@ -160,21 +219,21 @@ qx.Class.define("demo.Miner.Board", {
             if (square instanceof demo.Miner.Square){
                 if (square.getValue() === 0 && !square.getMined()){
                     square.destroy();
-                    this.add(new qx.ui.basic.Atom(null).set({width: 32, height: 32}), {row, column});
+                    this.add(this.__createEmptyLabel(), {row, column});
                 } else if (square.getValue() > 0 && !square.getMined()){
                     square.destroy();
-                    this.add(new qx.ui.basic.Atom(square.getValue().toString()).set({width: 32, height: 32}), {row, column});
+                    this.add(this.__createColoredLabel(square.getValue()), {row, column});
                     return;
                 }
             }
-            this.openKeyIfZero(column - 1, row);
-            this.openKeyIfZero(column + 1, row);
-            this.openKeyIfZero(column, row + 1);
-            this.openKeyIfZero(column, row - 1);
+            this.__getSquareAroundCoords(column, row).forEach(function(coords) {
+                this.openKeyIfZero(coords.column, coords.row);
+            }, this);
         },
 
         _onBlast(){
             this.showAllMines();
+            this.setBlocked(true);
             this.fireEvent("gameOver");
         }
     }

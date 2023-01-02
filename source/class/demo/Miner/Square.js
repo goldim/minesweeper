@@ -15,7 +15,7 @@ qx.Class.define("demo.Miner.Square", {
         // noinspection JSAnnotator
         super("");
         this.addListener("contextmenu", this._onRightClick, this);
-        this.addListener("execute", this._onExecute, this);
+        this.__makeExecutable();
     },
 
     properties: {
@@ -44,6 +44,12 @@ qx.Class.define("demo.Miner.Square", {
         rowNo: {
             init: 0,
             check: "Integer"
+        },
+
+        blocked: {
+            init: false,
+            check: "Boolean",
+            apply: "_applyBlocked"
         }
     },
 
@@ -57,6 +63,20 @@ qx.Class.define("demo.Miner.Square", {
     },
 
     members: {
+        _applyBlocked(blocked){
+            if (blocked){
+                if (this.__executeHandler){
+                    this.removeListenerById(this.__executeHandler);
+                }
+            } else {
+                this.__makeExecutable();
+            }
+        },
+
+        __makeExecutable(){
+            this.__executeHandler = this.addListener("execute", this._onExecute, this);
+        },
+
         _applyMined(){
             this.setValue(9);
         },
@@ -80,7 +100,9 @@ qx.Class.define("demo.Miner.Square", {
         },
 
         _onRightClick(){
-            this.setFlagged(!this.getFlagged());
+            if (!this.getBlocked()){
+                this.setFlagged(!this.getFlagged());
+            }
         }
     }
 });

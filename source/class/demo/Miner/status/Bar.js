@@ -51,6 +51,10 @@ qx.Class.define("demo.Miner.status.Bar", {
 
         gameOver(){
             this.__state.setStatus("fail");
+        },
+
+        finish(){
+            this.__state.setStatus("finished");
         }
     }
 });
