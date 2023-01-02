@@ -15,6 +15,7 @@ qx.Class.define("demo.Miner.Game", {
     construct(){
         // noinspection JSAnnotator
         super();
+        this.__timer = new demo.Miner.Timer();
     },
 
     properties: {
@@ -75,13 +76,21 @@ qx.Class.define("demo.Miner.Game", {
 
     members: {
         _applyState(state){
-            if (state === "over"){
-                this.setMinesLeft(0);
+            switch (state){
+                case "start":
+                    this.__timer.start();
+                    break;
+                case "over":
+                case "success":
+                    this.setMinesLeft(0);
+                    this.__timer.stop();
+                    break;
             }
         },
 
         _applyDifficulty(){
             this.setState("start");
+            this.__timer.start();
             this.__updateMinesLeft();
         },
 
@@ -117,6 +126,10 @@ qx.Class.define("demo.Miner.Game", {
 
         increaseSpottedMinesByOne(){
             this.setMinesLeft(this.getMinesLeft() - 1);
+        },
+
+        getTimer(){
+            return this.__timer;
         }
     }
 });

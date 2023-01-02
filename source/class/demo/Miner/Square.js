@@ -51,6 +51,11 @@ qx.Class.define("demo.Miner.Square", {
             init: false,
             check: "Boolean",
             apply: "_applyBlocked"
+        },
+
+        blasted: {
+            init: false,
+            check: "Boolean"
         }
     },
 
@@ -92,6 +97,7 @@ qx.Class.define("demo.Miner.Square", {
         _onExecute(){
             if (!this.getFlagged()){
                 if (this.getMined()){
+                    this.setBlasted(true);
                     this.fireEvent("blast");
                 } else {
                     this.fireEvent("open");

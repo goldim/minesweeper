@@ -95,8 +95,13 @@ qx.Class.define("demo.Miner.Board", {
                 if (this.__isSquare(square) && square.getMined()){
                     const column = square.getColumnNo();
                     const row = square.getRowNo();
+                    const mine = this.__createMineLabel();
+                    if (square.getBlasted()){
+                        mine.setBackgroundColor("red");
+                    }
                     square.destroy();
-                    this.add(this.__createMineLabel(), {row, column});
+
+                    this.add(mine, {row, column});
                 }
             }.bind(this));
         },
@@ -178,7 +183,9 @@ qx.Class.define("demo.Miner.Board", {
         },
 
         __createMineLabel(){
-            return new qx.ui.basic.Atom(null, "demo/Miner/miner.png").set({width: 32, height: 32});
+            const mine = new qx.ui.basic.Atom(null, "demo/Miner/mine.png").set({width: 32, height: 32});
+            mine.getChildControl("icon").set({scale: true, width: 32, height: 32});
+            return mine;
         },
 
         __checkOutOfBorders(column, row){

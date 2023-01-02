@@ -15,10 +15,6 @@ qx.Class.define("demo.Miner.status.Bar", {
         // noinspection JSAnnotator
         super();
         this.setLayout(new qx.ui.layout.Dock());
-
-        this.__timer = new qx.event.Timer(1000);
-        this.__timer.addListener("interval", this.updateTime, this);
-        this.__seconds = -1;
         this.__createComponents();
     },
 
@@ -41,21 +37,18 @@ qx.Class.define("demo.Miner.status.Bar", {
                 secondDigit = "0";
             }
             return `${firstDigit}${secondDigit}${value}`;
+        },
+
+        convertTime(timeInSeconds){
+            const minutes = Math.floor(timeInSeconds / 60);
+            const minuteTrailingZero = minutes < 10 ? "0" : "";
+            const seconds = timeInSeconds % 60;
+            const secondsTrailingZero = seconds < 10 ? "0" : "";
+            return `${minuteTrailingZero}${minutes}:${secondsTrailingZero}${seconds}`;
         }
     },
 
     members: {
-        __seconds: null,
-
-        updateTime(){
-            this.__seconds++;
-            const minutes = Math.floor(this.__seconds / 60);
-            const minuteTrailingZero = minutes < 10 ? "0" : "";
-            const seconds = this.__seconds % 60;
-            const secondsTrailingZero = seconds < 10 ? "0" : "";
-            this.setTime(`${minuteTrailingZero}${minutes}:${secondsTrailingZero}${seconds}`);
-        },
-
         __createComponents() {
             const game = demo.Miner.Game.getInstance();
 
@@ -63,7 +56,7 @@ qx.Class.define("demo.Miner.status.Bar", {
             game.bind("minesLeft", minesLeftLabel, "label", {converter: this.constructor.addTrailingZeros});
             this.__createComponent("left", "west", minesLeftLabel);
 
-            const state = this.__state = new demo.Miner.status.State();
+            const state = new demo.Miner.status.State();
             game.bind("state", state, "status");
             state.addListener("execute", function(){
                 game.startNew();
@@ -71,27 +64,8 @@ qx.Class.define("demo.Miner.status.Bar", {
             this.__createComponent("center", "center", state);
 
             const timeLabel = new qx.ui.basic.Atom();
-            this.bind("time", timeLabel, "label");
+            game.getTimer().bind("time", timeLabel, "label", {converter: this.constructor.convertTime});
             this.__createComponent("right", "east", timeLabel);
-
-            game.addListener("changeDifficulty", function() {
-                this.__seconds = -1;
-            }, this);
-
-            game.addListener("changeState", function(e){
-                const state = e.getData();
-                switch (state){
-                    case "start":
-                        this.__seconds = -1;
-                        this.updateTime();
-                        this.__timer.start();
-                        break;
-                    case "over":
-                    case "success":
-                        this.__timer.stop();
-                        break;
-                }
-            }, this)
         },
 
         __createComponent(alignX, edge, component){
