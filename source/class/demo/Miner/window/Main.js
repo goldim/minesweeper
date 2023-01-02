@@ -17,7 +17,8 @@ qx.Class.define("demo.Miner.window.Main", {
 
     construct(){
         // noinspection JSAnnotator
-        super("Miner");
+        super("Miner", "demo/Miner/caption.png");
+        this.getChildControl("icon").set({scale: true, width: 16, height: 16});
         this.set({
             allowMaximize: false,
             resizable: [false, false, false, false]
