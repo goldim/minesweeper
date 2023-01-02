@@ -19,12 +19,16 @@ qx.Class.define("demo.Miner.Board", {
         // noinspection JSAnnotator
         super();
         this.setLayout(new qx.ui.layout.Grid());
-        this.setDifficulty("Low");
-    },
-
-    events: {
-        "gameOver": "qx.event.type.Event",
-        "finished": "qx.event.type.Event"
+        const game = demo.Miner.Game.getInstance();
+        game.addListener("changeDifficulty", function(){
+            this.update();
+        }, this);
+        game.addListener("changeState", function(e){
+            if (e.getData() === "start"){
+                this.update();
+            }
+        }, this);
+        this.update();
     },
 
     properties: {
@@ -36,41 +40,18 @@ qx.Class.define("demo.Miner.Board", {
     },
 
     members: {
-        refresh(){
-            this.setBlocked(false);
-            this.setDifficulty(this.__difficulty);
+        update(){
+            const game = demo.Miner.Game.getInstance();
+            this.__colSize = game.getColumnSize();
+            this.__rowSize = game.getRowSize();
+            this.__mineCount = game.getMineCount();
+            this.prepare();
         },
 
-        setDifficulty(difficulty){
+        prepare(){
             this.removeAll();
-
-            const options = {
-                Low: {
-                    mineCount: 10,
-                    colSize: 9,
-                    rowSize: 9
-                },
-
-                Medium: {
-                    mineCount: 10,
-                    colSize: 16,
-                    rowSize: 16
-                },
-
-                Hard: {
-                    mineCount: 99,
-                    colSize: 30,
-                    rowSize: 16
-                }
-            };
-
-            this.__difficulty = difficulty;
-            const difficultyOptions = options[difficulty];
-            this.__colSize = difficultyOptions.colSize;
-            this.__rowSize = difficultyOptions.rowSize;
-            this.__mineCount = difficultyOptions.mineCount;
             this.fillBoard();
-            this.generateMines(difficultyOptions.mineCount, difficultyOptions.colSize, difficultyOptions.rowSize);
+            this.generateMines();
             this.evaluateValues();
         },
 
@@ -89,10 +70,11 @@ qx.Class.define("demo.Miner.Board", {
             }.bind(this));
         },
 
-        generateMines(count, colSize, rowSize){
+        generateMines(){
+            let count = this.__mineCount;
             while (count){
-                const column = this.randomInteger(0, colSize);
-                const row = this.randomInteger(0, rowSize);
+                const column = this.randomInteger(0, this.__colSize);
+                const row = this.randomInteger(0, this.__rowSize);
                 const square = this.getLayout().getCellWidget(row, column);
                 if (!square.getMined()){
                     square.setMined(true);
@@ -141,14 +123,14 @@ qx.Class.define("demo.Miner.Board", {
                 const square = this.getLayout().getCellWidget(row, column);
                 if (square instanceof demo.Miner.Square){
                     const count = this.__getSquareAroundCoords(column, row).filter(function(coords) {
-                        return this.checkIfMine(coords.column, coords.row)
+                        return this.checkMine(coords.column, coords.row)
                     }, this).length;
                     square.setValue(count);
                 }
             }.bind(this));
         },
 
-        checkIfMine(column, row){
+        checkMine(column, row){
             const square = this.getLayout().getCellWidget(row, column);
             return square instanceof demo.Miner.Square && square.getMined();
         },
@@ -171,7 +153,7 @@ qx.Class.define("demo.Miner.Board", {
             if (!value){
                 value = "";
                 this.__attended = [];
-                this.openKeyIfZero(column, row);
+                this.expandSpaceFromSquare(column, row);
             } else {
                 this.add(this.__createColoredLabel(value), {row, column});
             }
@@ -205,11 +187,11 @@ qx.Class.define("demo.Miner.Board", {
             }.bind(this));
             if (countRevealedSquares === (this.__colSize * this.__rowSize) - this.__mineCount){
                 this.setBlocked(true);
-                this.fireEvent("finished");
+                demo.Miner.Game.getInstance().setState("success");
             }
         },
 
-        openKeyIfZero(column, row){
+        expandSpaceFromSquare(column, row){
             if (this.__checkOutOfBorders(column, row)){
                 return;
             }
@@ -227,14 +209,14 @@ qx.Class.define("demo.Miner.Board", {
                 }
             }
             this.__getSquareAroundCoords(column, row).forEach(function(coords) {
-                this.openKeyIfZero(coords.column, coords.row);
+                this.expandSpaceFromSquare(coords.column, coords.row);
             }, this);
         },
 
         _onBlast(){
             this.showAllMines();
             this.setBlocked(true);
-            this.fireEvent("gameOver");
+            demo.Miner.Game.getInstance().setState("over");
         }
     }
 });

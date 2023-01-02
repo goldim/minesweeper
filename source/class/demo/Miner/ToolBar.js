@@ -18,10 +18,6 @@ qx.Class.define("demo.Miner.ToolBar", {
         this.__createComponents();
     },
 
-    events: {
-        "changeDifficulty": "qx.event.type.Data"
-    },
-
     members: {
         __createComponents(){
             this.add(this.__createGameMenu());
@@ -56,7 +52,7 @@ qx.Class.define("demo.Miner.ToolBar", {
             menu.add(hard);
             const difficultyGroup = new qx.ui.form.RadioGroup(low, medium, hard);
             difficultyGroup.addListener("changeValue", function(e){
-                this.fireDataEvent("changeDifficulty", e.getData().getLabel());
+                demo.Miner.Game.getInstance().setDifficulty(e.getData().getLabel());
             }, this);
             return menu;
         },

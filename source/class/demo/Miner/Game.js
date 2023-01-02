@@ -10,19 +10,64 @@
 
 qx.Class.define("demo.Miner.Game", {
     extend: qx.core.Object,
+    type: "singleton",
 
     construct(){
-        this.base(arguments);
+        // noinspection JSAnnotator
+        super();
     },
 
     properties: {
         difficulty: {
-            init: "low",
-            check: ["low", "medium", "hard"]
+            init: "Low",
+            check: ["Low", "Medium", "Hard"],
+            event: "changeDifficulty"
+        },
+
+        state: {
+            init: "start",
+            check: ["start", "over", "success"],
+            event: "changeState"
+        }
+    },
+
+    statics: {
+        DIFFICULTY_MAP: {
+            Low: {
+                mineCount: 10,
+                colSize: 9,
+                rowSize: 9
+            },
+
+            Medium: {
+                mineCount: 10,
+                colSize: 16,
+                rowSize: 16
+            },
+
+            Hard: {
+                mineCount: 99,
+                colSize: 30,
+                rowSize: 16
+            }
         }
     },
 
     members: {
+        getMineCount(){
+            return this.__extractFieldFromMap("mineCount");
+        },
 
+        getColumnSize(){
+            return this.__extractFieldFromMap("colSize");
+        },
+
+        getRowSize(){
+            return this.__extractFieldFromMap("rowSize");
+        },
+
+        __extractFieldFromMap(difficulty){
+            return this.constructor.DIFFICULTY_MAP[this.getDifficulty()][difficulty];
+        }
     }
 });
