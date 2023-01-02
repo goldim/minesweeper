@@ -50,10 +50,21 @@ qx.Class.define("demo.Miner.Game", {
                 colSize: 30,
                 rowSize: 16
             }
+        },
+
+        SQUARE_COLORS: [ "", "blue", "green", "red", "purple", "yellow" ],
+
+        getSquareColorByCode(code){
+            return demo.Miner.Game.SQUARE_COLORS[code];
         }
     },
 
     members: {
+        startNew(){
+            this.setState("over");
+            this.setState("start");
+        },
+
         getMineCount(){
             return this.__extractFieldFromMap("mineCount");
         },

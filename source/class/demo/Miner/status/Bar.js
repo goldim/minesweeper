@@ -35,7 +35,7 @@ qx.Class.define("demo.Miner.status.Bar", {
             const state = this.__state = new demo.Miner.status.State();
             state.addListener("execute", function(){
                 this.refresh();
-                demo.Miner.Game.getInstance().setState("start");
+                demo.Miner.Game.getInstance().startNew();
             }, this);
             this.__createComponent("center", "center", state);
 
@@ -46,6 +46,9 @@ qx.Class.define("demo.Miner.status.Bar", {
             game.addListener("changeState", function(e){
                 const state = e.getData();
                 switch (state){
+                    case "start":
+                        this.__state.setStatus("good");
+                        break;
                     case "over":
                         this.__state.setStatus("fail");
                         break;

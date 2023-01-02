@@ -58,10 +58,6 @@ qx.Class.define("demo.Miner.Square", {
         "open": "qx.event.type.Event"
     },
 
-    statics: {
-        CELL_COLORS: [ "", "blue", "green", "red", "purple", "yellow" ]
-    },
-
     members: {
         _applyBlocked(blocked){
             if (blocked){

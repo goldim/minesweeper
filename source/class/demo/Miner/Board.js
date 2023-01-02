@@ -56,7 +56,7 @@ qx.Class.define("demo.Miner.Board", {
         prepare(){
             this.removeAll();
             this.fillBoard();
-            this.generateMines();
+            this.__generateMines();
             this.evaluateValues();
         },
 
@@ -75,7 +75,7 @@ qx.Class.define("demo.Miner.Board", {
             }.bind(this));
         },
 
-        generateMines(){
+        __generateMines(){
             let count = this.__mineCount;
             while (count){
                 const column = this.randomInteger(0, this.__colSize);
@@ -88,17 +88,8 @@ qx.Class.define("demo.Miner.Board", {
             }
         },
 
-        __getSquareAroundCoords(column, row){
-            return [
-                {column: column + 1, row},
-                {column, row: row + 1},
-                {column: column + 1, row: row + 1},
-                {column: column - 1, row},
-                {column, row: row - 1},
-                {column: column - 1, row: row - 1},
-                {column: column - 1, row: row + 1},
-                {column: column + 1, row: row - 1}
-            ];
+        __getSquareAroundCoords(){
+            return [[1, 0], [0, 1], [1, 1], [-1, 0], [0, -1], [-1, -1], [-1, 1], [1,-1]];
         },
 
         showAllMines(){
@@ -127,8 +118,9 @@ qx.Class.define("demo.Miner.Board", {
             this.forEverySquare(function(column, row){
                 const square = this.getLayout().getCellWidget(row, column);
                 if (square instanceof demo.Miner.Square){
-                    const count = this.__getSquareAroundCoords(column, row).filter(function(coords) {
-                        return this.checkMine(coords.column, coords.row)
+                    const count = this.__getSquareAroundCoords(column, row)
+                        .filter(function(coords) {
+                            return this.checkMine(column + coords[0], row + coords[1])
                     }, this).length;
                     square.setValue(count);
                 }
@@ -162,11 +154,12 @@ qx.Class.define("demo.Miner.Board", {
             } else {
                 this.add(this.__createColoredLabel(value), {row, column});
             }
+            this.__checkFinished();
         },
 
         __createColoredLabel(value){
             const atom = new qx.ui.basic.Atom(value.toString()).set({width: 32, height: 32});
-            atom.setTextColor(demo.Miner.Square.CELL_COLORS[value]);
+            atom.setTextColor(demo.Miner.Game.getSquareColorByCode(value));
             return atom;
         },
 
@@ -214,7 +207,7 @@ qx.Class.define("demo.Miner.Board", {
                 }
             }
             this.__getSquareAroundCoords(column, row).forEach(function(coords) {
-                this.expandSpaceFromSquare(coords.column, coords.row);
+                this.expandSpaceFromSquare(column + coords[0], row + coords[1]);
             }, this);
         },
 
