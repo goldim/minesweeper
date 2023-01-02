@@ -75,12 +75,17 @@ qx.Class.define("demo.Miner.Game", {
         },
 
         _applyDifficulty(){
+            this.__updateMinesLeft();
+        },
+
+        __updateMinesLeft(){
+            this.setMinesLeft(this.getMineCount());
         },
 
         startNew(){
             this.setState("over");
             this.setState("start");
-            this.setMinesLeft(this.getMineCount());
+            this.__updateMinesLeft();
         },
 
         getMineCount(){

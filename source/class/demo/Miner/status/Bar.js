@@ -30,6 +30,20 @@ qx.Class.define("demo.Miner.status.Bar", {
         }
     },
 
+    statics: {
+        addTrailingZeros(value){
+            let firstDigit = "";
+            if (value < 100){
+                firstDigit = "0";
+            }
+            let secondDigit = "";
+            if (value < 10){
+                secondDigit = "0";
+            }
+            return `${firstDigit}${secondDigit}${value}`;
+        }
+    },
+
     members: {
         __seconds: null,
 
@@ -43,13 +57,12 @@ qx.Class.define("demo.Miner.status.Bar", {
             const minuteTrailingZero = minutes < 10 ? "0" : "";
             const seconds = this.__seconds % 60;
             const secondsTrailingZero = seconds < 10 ? "0" : "";
-            console.log(`${minuteTrailingZero}${minutes}:${secondsTrailingZero}${seconds}`, secondsTrailingZero);
             this.setTime(`${minuteTrailingZero}${minutes}:${secondsTrailingZero}${seconds}`);
         },
 
         __createComponents() {
-            const minesLeftLabel = this.__minesLeftLabel = new qx.ui.basic.Atom();
-            demo.Miner.Game.getInstance().bind("minesLeft", minesLeftLabel, "label");
+            const minesLeftLabel = new qx.ui.basic.Atom();
+            demo.Miner.Game.getInstance().bind("minesLeft", minesLeftLabel, "label", {converter: this.constructor.addTrailingZeros});
             this.__createComponent("left", "west", minesLeftLabel);
 
             const state = this.__state = new demo.Miner.status.State();
@@ -59,7 +72,7 @@ qx.Class.define("demo.Miner.status.Bar", {
             }, this);
             this.__createComponent("center", "center", state);
 
-            const timeLabel = this.__timeLabel = new qx.ui.basic.Atom();
+            const timeLabel = new qx.ui.basic.Atom();
             this.bind("time", timeLabel, "label");
             this.__createComponent("right", "east", timeLabel);
 
