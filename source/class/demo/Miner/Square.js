@@ -24,12 +24,6 @@ qx.Class.define("demo.Miner.Square", {
             refine: true
         },
 
-        mined: {
-            init: false,
-            check: "Boolean",
-            apply: "_applyMined"
-        },
-
         value: {
             init: 0,
             check: "Integer"
@@ -48,31 +42,22 @@ qx.Class.define("demo.Miner.Square", {
         blocked: {
             init: false,
             check: "Boolean"
-        },
-
-        blasted: {
-            init: false,
-            check: "Boolean"
         }
     },
 
     events: {
+        "open": "qx.event.type.Event",
         "blast": "qx.event.type.Event",
-        "open": "qx.event.type.Event"
     },
 
     members: {
-        _applyMined(){
-            this.setValue(9);
-        },
-
         _onExecute(){
             if (this.getBlocked()){
                 return;
             }
             if (!this.hasState("flagged")){
-                if (this.getMined()){
-                    this.setBlasted(true);
+                if (this.hasState("mined")){
+                    this.addState("blasted");
                     this.fireEvent("blast");
                 } else {
                     this.fireEvent("open");

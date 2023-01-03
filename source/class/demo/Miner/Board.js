@@ -79,8 +79,9 @@ qx.Class.define("demo.Miner.Board", {
                 const column = this.randomInteger(0, this.__colSize);
                 const row = this.randomInteger(0, this.__rowSize);
                 const square = this.getLayout().getCellWidget(row, column);
-                if (!square.getMined()){
-                    square.setMined(true);
+                if (!square.hasState("mined")){
+                    square.addState("mined");
+                    square.setValue(9);
                     count--;
                 }
             }
@@ -92,11 +93,11 @@ qx.Class.define("demo.Miner.Board", {
 
         showAllMines(){
             this.forEverySquare(function(square){
-                if (this.__isSquare(square) && square.getMined()){
+                if (this.__isSquare(square) && square.hasState("mined")){
                     const column = square.getColumnNo();
                     const row = square.getRowNo();
                     const mine = this.__createMineLabel();
-                    if (square.getBlasted()){
+                    if (square.hasState("blasted")){
                         mine.addState("blasted");
                     }
                     square.destroy();
@@ -144,7 +145,7 @@ qx.Class.define("demo.Miner.Board", {
 
         checkMine(column, row){
             const square = this.getLayout().getCellWidget(row, column);
-            return this.__isSquare(square) && square.getMined();
+            return this.__isSquare(square) && square.hasState("mined");
         },
 
         __createSquare(column, row){
@@ -213,13 +214,15 @@ qx.Class.define("demo.Miner.Board", {
             this.__attended.push({column, row});
             const square = this.getLayout().getCellWidget(row, column);
             if (this.__isSquare(square)){
-                if (square.getValue() === 0 && !square.getMined()){
-                    square.destroy();
-                    this.add(this.__createEmptyLabel(), {row, column});
-                } else if (square.getValue() > 0 && !square.getMined()){
-                    square.destroy();
-                    this.add(this.__createColoredLabel(square.getValue()), {row, column});
-                    return;
+                if (!square.hasState("mined")){
+                    if (square.getValue() === 0){
+                        square.destroy();
+                        this.add(this.__createEmptyLabel(), {row, column});
+                    } else if (square.getValue() > 0){
+                        square.destroy();
+                        this.add(this.__createColoredLabel(square.getValue()), {row, column});
+                        return;
+                    }
                 }
             }
             this.__getSquareAroundCoords().forEach(function(coords) {
