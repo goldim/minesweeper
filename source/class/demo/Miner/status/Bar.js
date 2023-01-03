@@ -58,6 +58,7 @@ qx.Class.define("demo.Miner.status.Bar", {
             const game = demo.Miner.Game.getInstance();
 
             const minesLeftLabel = new qx.ui.basic.Atom();
+            minesLeftLabel.setAppearance("status-label");
             game.bind("minesLeft", minesLeftLabel, "label", {converter: this.constructor.addTrailingZeros});
             this.__createComponent("left", "west", minesLeftLabel);
 
@@ -69,6 +70,7 @@ qx.Class.define("demo.Miner.status.Bar", {
             this.__createComponent("center", "center", state);
 
             const timeLabel = new qx.ui.basic.Atom();
+            timeLabel.setAppearance("status-label");
             game.getTimer().bind("time", timeLabel, "label", {converter: this.constructor.convertTime});
             this.__createComponent("right", "east", timeLabel);
         },

@@ -53,6 +53,21 @@ qx.Theme.define("demo.Miner.theme.Appearance",
       }
     },
 
+    "status-label": {
+      include: "atom",
+      alias: "atom",
+      style(){
+        return {
+          decorator: "status-label-bordered",
+          font: "square-danger",
+          textColor: "red",
+          paddingRight: 5,
+          paddingLeft: 5,
+          backgroundColor: "black"
+        }
+      }
+    },
+
     "state-button": {
       include: "button",
       alias: "button",

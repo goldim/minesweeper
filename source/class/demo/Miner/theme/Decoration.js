@@ -22,6 +22,14 @@ qx.Theme.define("demo.Miner.theme.Decoration",
       }
     },
 
+    "status-label-bordered": {
+      style: {
+        width: 2,
+        style: "solid",
+        color: "red"
+      }
+    },
+
     "status-bar-bordered": {
       include: "inset"
     }
