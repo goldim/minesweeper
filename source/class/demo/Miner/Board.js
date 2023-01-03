@@ -179,8 +179,10 @@ qx.Class.define("demo.Miner.Board", {
         },
 
         __createColoredLabel(value){
-            const atom = new demo.Miner.OpenedSquare(value.toString());
-            atom.setTextColor(demo.Miner.Game.getSquareColorByCode(value));
+            const valueStr = value.toString();
+            const atom = new demo.Miner.OpenedSquare(valueStr);
+            console.log(`mines-around-${valueStr}`);
+            atom.addState(`mines-around-${valueStr}`);
             return atom;
         },
 

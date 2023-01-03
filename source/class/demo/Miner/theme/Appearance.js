@@ -110,9 +110,19 @@ qx.Theme.define("demo.Miner.theme.Appearance",
         if (states.mined){
           icon = demo.Miner.theme.Image.URLS["square-mined"]
         }
+        let textColor = undefined;
+
+        for (let i = 1; i < 9; i++){
+          const color = `mines-around-${i}`;
+          if (states[color]){
+            textColor = color;
+            break;
+          }
+        }
 
         return {
-          backgroundColor: states.blasted ? "red" : undefined,
+          textColor,
+          backgroundColor: states.blasted? "red": undefined,
           icon,
           width: 32,
           height: 32,

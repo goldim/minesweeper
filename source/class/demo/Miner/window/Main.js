@@ -22,7 +22,8 @@ qx.Class.define("demo.Miner.window.Main", {
         this.set({
             allowMaximize: false,
             resizable: [false, false, false, false],
-            centerOnAppear: true
+            centerOnAppear: true,
+            centerOnContainerResize: true
         });
         this.setLayout(new qx.ui.layout.Dock());
         const topContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());

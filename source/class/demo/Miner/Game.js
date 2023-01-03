@@ -63,12 +63,6 @@ qx.Class.define("demo.Miner.Game", {
             }
         },
 
-        SQUARE_COLORS: ["", "blue", "green", "red", "navy", "brown", "cyan", "black", "white"],
-
-        getSquareColorByCode(code){
-            return demo.Miner.Game.SQUARE_COLORS[code];
-        },
-
         getDifficulties(){
             return Object.keys(demo.Miner.Game.DIFFICULTY_OPTIONS);
         }
