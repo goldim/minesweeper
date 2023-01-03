@@ -14,6 +14,16 @@ qx.Theme.define("demo.Miner.theme.Appearance",
 
   appearances :
   {
+    "status-bar": {
+      style() {
+        return {
+          decorator: "status-bar-bordered",
+          padding: 5,
+          marginBottom: 10
+        }
+      }
+    },
+
     square: {
       include: "button",
       alias: "button",

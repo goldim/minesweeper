@@ -19,6 +19,11 @@ qx.Class.define("demo.Miner.status.Bar", {
     },
 
     properties: {
+        appearance: {
+            init: "status-bar",
+            refine: true
+        },
+
         time: {
             init: "--:--",
             check: "String",

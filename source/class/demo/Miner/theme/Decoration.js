@@ -16,8 +16,14 @@ qx.Theme.define("demo.Miner.theme.Decoration",
   {
     "opened-square-bordered": {
       style: {
-        width: 1
+        width: [0, 1, 1, 0],
+        style: "solid",
+        color: "gray"
       }
+    },
+
+    "status-bar-bordered": {
+      include: "inset"
     }
   }
 });
