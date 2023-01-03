@@ -24,6 +24,14 @@ qx.Theme.define("demo.Miner.theme.Appearance",
       }
     },
 
+    "board": {
+      style() {
+        return {
+          decorator: "status-bar-bordered"
+        }
+      }
+    },
+
     square: {
       include: "button",
       alias: "button",

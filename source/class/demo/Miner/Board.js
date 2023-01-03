@@ -23,6 +23,11 @@ qx.Class.define("demo.Miner.Board", {
     },
 
     properties: {
+        appearance: {
+            init: "board",
+            refine: true
+        },
+
         blocked: {
             init: false,
             check: "Boolean",
