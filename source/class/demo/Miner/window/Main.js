@@ -15,10 +15,16 @@
 qx.Class.define("demo.Miner.window.Main", {
     extend: qx.ui.window.Window,
 
+    properties: {
+        appearance: {
+            init: "main-window",
+            refine: true
+        }
+    },
+
     construct(){
         // noinspection JSAnnotator
-        super("Miner", "demo/Miner/caption.png");
-        this.getChildControl("icon").set({scale: true, width: 16, height: 16});
+        super("Miner");
         this.set({
             allowMaximize: false,
             resizable: [false, false, false, false],

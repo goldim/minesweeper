@@ -14,6 +14,26 @@ qx.Theme.define("demo.Miner.theme.Appearance",
 
   appearances :
   {
+    "main-window": {
+      include: "window",
+      alias: "window",
+      style(){
+        return {
+          icon: demo.Miner.theme.Image.URLS["main-window-icon"]
+        }
+      }
+    },
+
+    "main-window/icon": {
+      style() {
+        return {
+          scale: true,
+          width: 16,
+          height: 16
+        }
+      }
+    },
+
     "status-bar": {
       style() {
         return {
