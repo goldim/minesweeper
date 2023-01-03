@@ -14,5 +14,10 @@ qx.Theme.define("demo.Miner.theme.Decoration",
 
   decorations :
   {
+    "opened-square-bordered": {
+      style: {
+        width: 1
+      }
+    }
   }
 });

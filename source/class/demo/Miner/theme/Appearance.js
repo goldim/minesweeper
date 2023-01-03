@@ -50,16 +50,14 @@ qx.Theme.define("demo.Miner.theme.Appearance",
       alias: "button",
 
       style(states){
-        let icon;
-        if (states.start){
-          icon = "@MaterialIcons/sentiment_satisfied_alt/24"
-        } else if (states.over){
-          icon = "@MaterialIcons/sentiment_very_dissatisfied/24"
-        } else if (states.success){
-          icon = "@MaterialIcons/sentiment_very_satisfied/24"
-        }
         return {
-          icon: icon
+          icon: demo.Miner.theme.Image.URLS[
+              states.start
+                  ? "state-button-start"
+                  : states.over
+                      ? "state-button-over"
+                      : "state-button-success"
+              ]
         };
       }
     },
@@ -82,7 +80,7 @@ qx.Theme.define("demo.Miner.theme.Appearance",
       style(states){
         let icon;
         if (states.mined){
-          icon = "demo/Miner/mine.png"
+          icon = demo.Miner.theme.Image.URLS["square-mined"]
         } else if (states.empty){
           icon = null
         }
