@@ -105,22 +105,18 @@ qx.Theme.define("demo.Miner.theme.Appearance",
     },
 
     "opened-square": {
-      include: "atom",
-      alias: "atom",
-
       style(states){
-        let icon;
+        let icon = null;
         if (states.mined){
           icon = demo.Miner.theme.Image.URLS["square-mined"]
-        } else if (states.empty){
-          icon = null
         }
 
         return {
           backgroundColor: states.blasted ? "red" : undefined,
-          icon: icon,
+          icon,
           width: 32,
-          height: 32
+          height: 32,
+          alignX: "center",
         };
       }
     },
@@ -128,7 +124,6 @@ qx.Theme.define("demo.Miner.theme.Appearance",
     "opened-square/icon": {
       style(){
         return {
-          alignX: "center",
           scale: true,
           width: 32,
           height: 32
@@ -140,7 +135,9 @@ qx.Theme.define("demo.Miner.theme.Appearance",
       style(){
         return {
           textAlign: "center",
-          font: "square-danger"
+          font: "square-danger",
+          width: 32,
+          height: 32
         }
       }
     }
