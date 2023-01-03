@@ -24,8 +24,6 @@ qx.Theme.define("demo.Miner.theme.Appearance",
               ? "square-flagged"
               : states.questioned
                   ? "square-question"
-                  : states.cleared
-                    ? ""
                     : ""
           ],
           width: 32,
