@@ -75,7 +75,7 @@ qx.Class.define("demo.Miner.Square", {
                 this.replaceState("flagged", "questioned");
                 game.decreaseSpottedMinesByOne();
             } else if (this.hasState("questioned")){
-                this.replaceState("questioned", "cleared");
+                this.removeState("questioned");
             } else if (!(demo.Miner.Game.getInstance().getMinesLeft() === 0 && !this.hasState("flagged"))) {
                 this.addState("flagged");
                 game.increaseSpottedMinesByOne();
