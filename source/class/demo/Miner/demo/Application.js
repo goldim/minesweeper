@@ -43,7 +43,6 @@ qx.Class.define("demo.Miner.demo.Application", {
       const manager = new qx.ui.window.Manager();
       const desktop = new qx.ui.window.Desktop(manager);
       const mainWin = new demo.Miner.window.Main();
-      mainWin.setCenterOnAppear(true);
       mainWin.open();
       desktop.add(mainWin);
       this.getRoot().add(desktop, {width: "100%", height: "100%"});

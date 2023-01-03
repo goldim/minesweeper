@@ -10,7 +10,7 @@
 
 qx.Theme.define("demo.Miner.theme.Color",
 {
-  extend : qx.theme.indigo.Color,
+  extend : qx.theme.classic.Color,
 
   colors :
   {

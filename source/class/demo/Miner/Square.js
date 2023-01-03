@@ -15,15 +15,13 @@ qx.Class.define("demo.Miner.Square", {
         // noinspection JSAnnotator
         super("");
         this.addListener("contextmenu", this._onRightClick, this);
-        this.__makeExecutable();
+        this.addListener("execute", this._onExecute, this);
     },
 
     properties: {
-        flagged: {
-            init: false,
-            check: "Boolean",
-            event: "changeFlagged",
-            apply: "_applyFlagged"
+        appearance: {
+            init: "square",
+            refine: true
         },
 
         mined: {
@@ -49,14 +47,7 @@ qx.Class.define("demo.Miner.Square", {
 
         blocked: {
             init: false,
-            check: "Boolean",
-            apply: "_applyBlocked"
-        },
-
-        underQuestion: {
-            init: false,
-            check: "Boolean",
-            apply: "_applyUnderQuestion"
+            check: "Boolean"
         },
 
         blasted: {
@@ -71,45 +62,15 @@ qx.Class.define("demo.Miner.Square", {
     },
 
     members: {
-        _applyBlocked(blocked){
-            if (blocked){
-                if (this.__executeHandler){
-                    this.removeListenerById(this.__executeHandler);
-                }
-            } else {
-                this.__makeExecutable();
-            }
-        },
-
-        __makeExecutable(){
-            this.__executeHandler = this.addListener("execute", this._onExecute, this);
-        },
-
         _applyMined(){
             this.setValue(9);
         },
 
-        _applyUnderQuestion(value){
-            if (value){
-                this.setIcon("@MaterialIcons/question_mark/16");
-            } else {
-                this.setIcon(null);
-            }
-        },
-
-        _applyFlagged(value){
-            const game = demo.Miner.Game.getInstance();
-            if (value){
-                this.setIcon("@MaterialIcons/flag/16");
-                game.increaseSpottedMinesByOne();
-            } else {
-                game.decreaseSpottedMinesByOne();
-                this.setIcon(null);
-            }
-        },
-
         _onExecute(){
-            if (!this.getFlagged()){
+            if (this.getBlocked()){
+                return;
+            }
+            if (!this.hasState("flagged")){
                 if (this.getMined()){
                     this.setBlasted(true);
                     this.fireEvent("blast");
@@ -120,15 +81,19 @@ qx.Class.define("demo.Miner.Square", {
         },
 
         _onRightClick(){
-            if (!this.getBlocked()) {
-                if (this.getFlagged()){
-                    this.setFlagged(false);
-                    this.setUnderQuestion(true);
-                } else if (this.getUnderQuestion()){
-                    this.setUnderQuestion(false);
-                } else if (!(demo.Miner.Game.getInstance().getMinesLeft() === 0 && !this.getFlagged())) {
-                    this.setFlagged(!this.getFlagged());
-                }
+            if (this.getBlocked()) {
+                return;
+            }
+            const game = demo.Miner.Game.getInstance();
+
+            if (this.hasState("flagged")){
+                this.replaceState("flagged", "questioned");
+                game.decreaseSpottedMinesByOne();
+            } else if (this.hasState("questioned")){
+                this.replaceState("questioned", "cleared");
+            } else if (!(demo.Miner.Game.getInstance().getMinesLeft() === 0 && !this.hasState("flagged"))) {
+                this.addState("flagged");
+                game.increaseSpottedMinesByOne();
             }
         }
     }

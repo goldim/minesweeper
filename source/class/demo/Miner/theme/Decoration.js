@@ -10,7 +10,7 @@
 
 qx.Theme.define("demo.Miner.theme.Decoration",
 {
-  extend : qx.theme.indigo.Decoration,
+  extend : qx.theme.classic.Decoration,
 
   decorations :
   {

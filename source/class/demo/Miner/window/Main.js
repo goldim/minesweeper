@@ -21,7 +21,8 @@ qx.Class.define("demo.Miner.window.Main", {
         this.getChildControl("icon").set({scale: true, width: 16, height: 16});
         this.set({
             allowMaximize: false,
-            resizable: [false, false, false, false]
+            resizable: [false, false, false, false],
+            centerOnAppear: true
         });
         this.setLayout(new qx.ui.layout.Dock());
         const topContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());

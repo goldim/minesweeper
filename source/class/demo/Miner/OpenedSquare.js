@@ -8,15 +8,13 @@
 
 ************************************************************************ */
 
-qx.Theme.define("demo.Miner.theme.Font",
-{
-  extend : qx.theme.classic.Font,
+qx.Class.define("demo.Miner.OpenedSquare", {
+    extend: qx.ui.basic.Atom,
 
-  fonts :
-  {
-    "square-danger": {
-      include: "monospace",
-      size: 20
+    properties: {
+        appearance: {
+            init: "opened-square",
+            refine: true
+        }
     }
-  }
 });

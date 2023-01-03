@@ -97,7 +97,7 @@ qx.Class.define("demo.Miner.Board", {
                     const row = square.getRowNo();
                     const mine = this.__createMineLabel();
                     if (square.getBlasted()){
-                        mine.setBackgroundColor("red");
+                        mine.addState("blasted");
                     }
                     square.destroy();
 
@@ -173,18 +173,18 @@ qx.Class.define("demo.Miner.Board", {
         },
 
         __createColoredLabel(value){
-            const atom = new qx.ui.basic.Atom(value.toString()).set({width: 32, height: 32});
+            const atom = new demo.Miner.OpenedSquare(value.toString());
             atom.setTextColor(demo.Miner.Game.getSquareColorByCode(value));
             return atom;
         },
 
         __createEmptyLabel(){
-            return new qx.ui.basic.Atom(null).set({width: 32, height: 32});
+            return new demo.Miner.OpenedSquare(null);
         },
 
         __createMineLabel(){
-            const mine = new qx.ui.basic.Atom(null, "demo/Miner/mine.png").set({width: 32, height: 32});
-            mine.getChildControl("icon").set({scale: true, width: 32, height: 32});
+            const mine = new demo.Miner.OpenedSquare(null);
+            mine.addState("mined");
             return mine;
         },
 
