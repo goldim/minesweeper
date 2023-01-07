@@ -35,8 +35,7 @@ qx.Class.define("minesweeper.test.DemoTest",
     /**
      * Here are some simple tests
      */
-    testSimple : function()
-    {
+    testSimple : function() {
       this.assertEquals(4, 3+1, "This should never fail!");
       this.assertFalse(false, "Can false be true?!");
     },
@@ -44,8 +43,7 @@ qx.Class.define("minesweeper.test.DemoTest",
     /**
      * Here are some more advanced tests
      */
-    testAdvanced: function () 
-    {
+    testAdvanced: function () {
       var a = 3;
       var b = a;
       this.assertIdentical(a, b, "A rose by any other name is still a rose");

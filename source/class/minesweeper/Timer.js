@@ -11,14 +11,14 @@
 qx.Class.define("minesweeper.Timer", {
     extend: qx.core.Object,
 
-    construct(){
+    construct() {
         // noinspection JSAnnotator
         super();
         this.__timer = new qx.event.Timer(1000);
         this.__timer.addListener("interval", this.__updateTime, this);
     },
 
-    destruct(){
+    destruct() {
         this.__timer.stop();
         this.__timer.dispose();
     },
@@ -32,16 +32,16 @@ qx.Class.define("minesweeper.Timer", {
     },
 
     members: {
-        __updateTime(){
+        __updateTime() {
             this.setTime(this.getTime() + 1);
         },
 
-        start(){
+        start() {
             this.resetTime();
             this.__timer.start();
         },
 
-        stop(){
+        stop() {
             this.__timer.stop();
         }
     }

@@ -12,7 +12,7 @@ qx.Class.define("minesweeper.Game", {
     extend: qx.core.Object,
     type: "singleton",
 
-    construct(){
+    construct() {
         // noinspection JSAnnotator
         super();
         this.__timer = new minesweeper.Timer();
@@ -63,14 +63,14 @@ qx.Class.define("minesweeper.Game", {
             }
         },
 
-        getDifficulties(){
+        getDifficulties() {
             return Object.keys(minesweeper.Game.DIFFICULTY_OPTIONS);
         }
     },
 
     members: {
-        _applyState(state){
-            switch (state){
+        _applyState(state) {
+            switch (state) {
                 case "start":
                     this.__timer.start();
                     break;
@@ -82,47 +82,47 @@ qx.Class.define("minesweeper.Game", {
             }
         },
 
-        _applyDifficulty(){
+        _applyDifficulty() {
             this.setState("start");
             this.__timer.start();
             this.__updateMinesLeft();
         },
 
-        __updateMinesLeft(){
+        __updateMinesLeft() {
             this.setMinesLeft(this.getMineCount());
         },
 
-        startNew(){
+        startNew() {
             this.setState("over");
             this.setState("start");
             this.__updateMinesLeft();
         },
 
-        getMineCount(){
+        getMineCount() {
             return this.__extractFieldFromMap("mineCount");
         },
 
-        getColumnSize(){
+        getColumnSize() {
             return this.__extractFieldFromMap("colSize");
         },
 
-        getRowSize(){
+        getRowSize() {
             return this.__extractFieldFromMap("rowSize");
         },
 
-        __extractFieldFromMap(difficulty){
+        __extractFieldFromMap(difficulty) {
             return this.constructor.DIFFICULTY_OPTIONS[this.getDifficulty()][difficulty];
         },
 
-        decreaseSpottedMinesByOne(){
+        decreaseSpottedMinesByOne() {
             this.setMinesLeft(this.getMinesLeft() + 1);
         },
 
-        increaseSpottedMinesByOne(){
+        increaseSpottedMinesByOne() {
             this.setMinesLeft(this.getMinesLeft() - 1);
         },
 
-        getTimer(){
+        getTimer() {
             return this.__timer;
         }
     }

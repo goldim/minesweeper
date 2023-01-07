@@ -31,9 +31,9 @@ qx.Class.define("minesweeper.window.About", {
    },
 
    members: {
-      _createChildControlImpl(name){
+      _createChildControlImpl(name) {
          let control;
-         switch(name){
+         switch (name) {
             case "description":
                control = new qx.ui.basic.Atom(this.__getDescription());
                control.setRich(true);
@@ -43,10 +43,10 @@ qx.Class.define("minesweeper.window.About", {
          return control || super._createChildControlImpl(name);
       },
 
-      __getDescription(){
-         return this.tr("The application is based on Qooxdoo framework."
-         + "The goal of the application is demonstration of possibilities of the framework."
-         + "Any functionality or source code improvement is welcomed.");
+      __getDescription() {
+         return this.tr("The application is based on Qooxdoo framework." +
+         "The goal of the application is demonstration of possibilities of the framework." +
+         "Any functionality or source code improvement is welcomed.");
       }
    }
 });

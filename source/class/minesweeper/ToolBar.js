@@ -12,7 +12,7 @@ qx.Class.define("minesweeper.ToolBar", {
     extend: qx.ui.toolbar.ToolBar,
     include: qx.locale.MTranslation,
 
-    construct(){
+    construct() {
         // noinspection JSAnnotator
         super();
         this.__createComponents();
@@ -21,12 +21,12 @@ qx.Class.define("minesweeper.ToolBar", {
     },
 
     members: {
-        __createComponents(){
+        __createComponents() {
             this.add(this.__createGameMenu());
             this.add(this.__createAboutMenu());
         },
 
-        __createGameMenu(){
+        __createGameMenu() {
             const button = new qx.ui.toolbar.MenuButton(this.tr("Game"));
             button.setMenu(this.getGameMenu());
             return button;
@@ -35,7 +35,7 @@ qx.Class.define("minesweeper.ToolBar", {
         getGameMenu() {
             const menu = new qx.ui.menu.Menu();
             const newButton = new qx.ui.menu.Button(this.tr("New"));
-            newButton.addListener("execute", function(){
+            newButton.addListener("execute", function() {
                 minesweeper.Game.getInstance().startNew();
             }, this);
             menu.add(newButton);
@@ -51,7 +51,7 @@ qx.Class.define("minesweeper.ToolBar", {
             return menu;
         },
 
-        __createDifficultyMenu(){
+        __createDifficultyMenu() {
             const menu = new qx.ui.menu.Menu();
             const difficulties = minesweeper.Game.getDifficulties();
             const difficultyGroup = new qx.ui.form.RadioGroup();
@@ -61,14 +61,14 @@ qx.Class.define("minesweeper.ToolBar", {
                 menu.add(button);
                 difficultyGroup.add(button);
             });
-            difficultyGroup.addListener("changeValue", function(e){
+            difficultyGroup.addListener("changeValue", function(e) {
                 const value = qx.lang.String.firstLow(e.getData().getLabel());
                 minesweeper.Game.getInstance().setDifficulty(value);
             }, this);
             return menu;
         },
 
-        __createLanguageMenu(){
+        __createLanguageMenu() {
             const menu = new qx.ui.menu.Menu();
             const languages = qx.locale.Manager.getInstance().getAvailableLocales();
             const languageGroup = new qx.ui.form.RadioGroup();
@@ -78,7 +78,7 @@ qx.Class.define("minesweeper.ToolBar", {
                 menu.add(button);
                 languageGroup.add(button);
             });
-            languageGroup.addListener("changeValue", function(e){
+            languageGroup.addListener("changeValue", function(e) {
                 const locale = qx.lang.String.firstLow(e.getData().getLabel());
                 qx.locale.Manager.getInstance().setLocale(locale);
             }, this);
@@ -87,7 +87,7 @@ qx.Class.define("minesweeper.ToolBar", {
         },
 
 
-        __createAboutMenu(){
+        __createAboutMenu() {
             const menuButton = new qx.ui.toolbar.MenuButton(this.tr("Help"));
             const menu = new qx.ui.menu.Menu();
             menuButton.setMenu(menu);
@@ -97,7 +97,7 @@ qx.Class.define("minesweeper.ToolBar", {
             return menuButton;
         },
 
-        _onAboutButton(){
+        _onAboutButton() {
             this.__aboutWindow.open();
         }
     }

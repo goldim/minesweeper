@@ -11,7 +11,7 @@
 qx.Class.define("minesweeper.Square", {
     extend: qx.ui.form.Button,
 
-    construct(){
+    construct() {
         // noinspection JSAnnotator
         super("");
         this.addListener("contextmenu", this._onRightClick, this);
@@ -47,16 +47,16 @@ qx.Class.define("minesweeper.Square", {
 
     events: {
         "open": "qx.event.type.Event",
-        "blast": "qx.event.type.Event",
+        "blast": "qx.event.type.Event"
     },
 
     members: {
-        _onExecute(){
-            if (this.getBlocked()){
+        _onExecute() {
+            if (this.getBlocked()) {
                 return;
             }
-            if (!this.hasState("flagged")){
-                if (this.hasState("mined")){
+            if (!this.hasState("flagged")) {
+                if (this.hasState("mined")) {
                     this.addState("blasted");
                     this.fireEvent("blast");
                 } else {
@@ -65,16 +65,16 @@ qx.Class.define("minesweeper.Square", {
             }
         },
 
-        _onRightClick(){
+        _onRightClick() {
             if (this.getBlocked()) {
                 return;
             }
             const game = minesweeper.Game.getInstance();
 
-            if (this.hasState("flagged")){
+            if (this.hasState("flagged")) {
                 this.replaceState("flagged", "questioned");
                 game.decreaseSpottedMinesByOne();
-            } else if (this.hasState("questioned")){
+            } else if (this.hasState("questioned")) {
                 this.removeState("questioned");
             } else if (!(minesweeper.Game.getInstance().getMinesLeft() === 0 && !this.hasState("flagged"))) {
                 this.addState("flagged");

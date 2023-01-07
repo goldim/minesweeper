@@ -17,72 +17,72 @@ qx.Theme.define("minesweeper.theme.Appearance",
     "main-window": {
       include: "window",
       alias: "window",
-      style(){
+      style() {
         return {
           alignX: "center",
           alignY: "middle",
           icon: minesweeper.theme.Image.URLS["main-window-icon"]
-        }
+        };
       }
     },
 
     "about-window": {
       include: "window",
       alias: "window",
-      style(){
+      style() {
         return {
           alignX: "center",
           alignY: "middle",
           icon: minesweeper.theme.Image.URLS["about-window-icon"],
           width: 300
-        }
+        };
       }
     },
 
     "about-window/maximize-button": {
-      style(){
+      style() {
         return {
           opacity: 0
-        }
+        };
       }
     },
 
     "about-window/minimize-button": {
-      style(){
+      style() {
         return {
           opacity: 0
-        }
+        };
       }
     },
 
     "about-window/description": {
       include: "atom",
       alias: "atom",
-      style(){
+      style() {
         return {
           icon: minesweeper.theme.Image.URLS["main-window-icon"],
           padding: 5
-        }
+        };
       }
     },
 
     "about-window/description/icon": {
-      style(){
+      style() {
         return {
           scale: true,
           width: 64,
           height: 64
-        }
+        };
       }
     },
 
     "about-window/description/label": {
       include: "label",
       alias: "label",
-      style(){
+      style() {
         return {
           textAlign: "left"
-        }
+        };
       }
     },
 
@@ -92,7 +92,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
           scale: true,
           width: 16,
           height: 16
-        }
+        };
       }
     },
 
@@ -102,7 +102,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
           decorator: "status-bar-bordered",
           padding: 5,
           marginBottom: 10
-        }
+        };
       }
     },
 
@@ -110,7 +110,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
       style() {
         return {
           decorator: "status-bar-bordered"
-        }
+        };
       }
     },
 
@@ -120,15 +120,15 @@ qx.Theme.define("minesweeper.theme.Appearance",
       style(states) {
         return {
           icon: minesweeper.theme.Image.URLS[
-            states.flagged
-              ? "square-flagged"
-              : states.questioned
-                  ? "square-question"
-                    : ""
+            states.flagged ?
+              "square-flagged" :
+              states.questioned ?
+                  "square-question" :
+                    ""
           ],
           width: 32,
           height: 32
-        }
+        };
       }
     },
 
@@ -146,7 +146,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
     "status-label": {
       include: "atom",
       alias: "atom",
-      style(){
+      style() {
         return {
           decorator: "status-label-bordered",
           font: "square-danger",
@@ -154,7 +154,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
           paddingRight: 5,
           paddingLeft: 5,
           backgroundColor: "black"
-        }
+        };
       }
     },
 
@@ -162,14 +162,14 @@ qx.Theme.define("minesweeper.theme.Appearance",
       include: "button",
       alias: "button",
 
-      style(states){
+      style(states) {
         return {
           icon: minesweeper.theme.Image.URLS[
-              states.start
-                  ? "state-button-start"
-                  : states.over
-                      ? "state-button-over"
-                      : "state-button-success"
+              states.start ?
+                  "state-button-start" :
+                  states.over ?
+                      "state-button-over" :
+                      "state-button-success"
               ]
         };
       }
@@ -187,16 +187,16 @@ qx.Theme.define("minesweeper.theme.Appearance",
     },
 
     "opened-square": {
-      style(states){
+      style(states) {
         let icon = null;
-        if (states.mined){
-          icon = minesweeper.theme.Image.URLS["square-mined"]
+        if (states.mined) {
+          icon = minesweeper.theme.Image.URLS["square-mined"];
         }
-        let textColor = undefined;
+        let textColor;
 
-        for (let i = 1; i < 9; i++){
+        for (let i = 1; i < 9; i++) {
           const color = `mines-around-${i}`;
-          if (states[color]){
+          if (states[color]) {
             textColor = color;
             break;
           }
@@ -208,29 +208,29 @@ qx.Theme.define("minesweeper.theme.Appearance",
           icon,
           width: 32,
           height: 32,
-          alignX: "center",
+          alignX: "center"
         };
       }
     },
 
     "opened-square/icon": {
-      style(){
+      style() {
         return {
           scale: true,
           width: 32,
           height: 32
-        }
+        };
       }
     },
 
     "opened-square/label": {
-      style(){
+      style() {
         return {
           textAlign: "center",
           font: "square-danger",
           width: 32,
           height: 32
-        }
+        };
       }
     }
   }

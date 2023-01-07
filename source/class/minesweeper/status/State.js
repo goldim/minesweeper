@@ -26,8 +26,8 @@ qx.Class.define("minesweeper.status.State", {
     },
 
     members: {
-        _applyStatus(value, oldValue){
-            if (!oldValue){
+        _applyStatus(value, oldValue) {
+            if (!oldValue) {
                 this.addState(value);
             } else {
                 this.replaceState(oldValue, value);

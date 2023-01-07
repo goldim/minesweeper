@@ -23,7 +23,7 @@ qx.Class.define("minesweeper.window.Main", {
         }
     },
 
-    construct(){
+    construct() {
         // noinspection JSAnnotator
         super(this.tr("Minesweeper"));
         this.set({
@@ -41,11 +41,11 @@ qx.Class.define("minesweeper.window.Main", {
     },
 
     members: {
-        __createToolBar(){
+        __createToolBar() {
             return new minesweeper.ToolBar();
         },
 
-        __createBoard(){
+        __createBoard() {
             const board = new minesweeper.Board();
             this.add(board, {edge: "center"});
             return board;

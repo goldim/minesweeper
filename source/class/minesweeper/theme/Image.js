@@ -26,7 +26,7 @@ qx.Class.define("minesweeper.theme.Image", {
             "state-button-success": "@MaterialIcons/sentiment_very_satisfied/24",
             "state-button-over": "@MaterialIcons/sentiment_very_dissatisfied/24",
             "main-window-icon": "minesweeper/caption.png",
-            "about-window-icon": "@MaterialIcons/info/16",
+            "about-window-icon": "@MaterialIcons/info/16"
         }
     }
 });

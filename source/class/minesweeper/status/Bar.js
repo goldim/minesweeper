@@ -11,7 +11,7 @@
 qx.Class.define("minesweeper.status.Bar", {
     extend: qx.ui.container.Composite,
 
-    construct(){
+    construct() {
         // noinspection JSAnnotator
         super();
         this.setLayout(new qx.ui.layout.Dock());
@@ -32,19 +32,19 @@ qx.Class.define("minesweeper.status.Bar", {
     },
 
     statics: {
-        addTrailingZeros(value){
+        addTrailingZeros(value) {
             let firstDigit = "";
-            if (value < 100){
+            if (value < 100) {
                 firstDigit = "0";
             }
             let secondDigit = "";
-            if (value < 10){
+            if (value < 10) {
                 secondDigit = "0";
             }
             return `${firstDigit}${secondDigit}${value}`;
         },
 
-        convertTime(timeInSeconds){
+        convertTime(timeInSeconds) {
             const minutes = Math.floor(timeInSeconds / 60);
             const minuteTrailingZero = minutes < 10 ? "0" : "";
             const seconds = timeInSeconds % 60;
@@ -64,7 +64,7 @@ qx.Class.define("minesweeper.status.Bar", {
 
             const state = new minesweeper.status.State();
             game.bind("state", state, "status");
-            state.addListener("execute", function(){
+            state.addListener("execute", function() {
                 game.startNew();
             }, this);
             this.__createComponent("center", "center", state);
@@ -75,7 +75,7 @@ qx.Class.define("minesweeper.status.Bar", {
             this.__createComponent("right", "east", timeLabel);
         },
 
-        __createComponent(alignX, edge, component){
+        __createComponent(alignX, edge, component) {
             const block = new qx.ui.container.Composite(new qx.ui.layout.HBox().set({alignX}));
             block.add(component);
             this.add(block, {edge});
