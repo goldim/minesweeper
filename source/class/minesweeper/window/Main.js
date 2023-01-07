@@ -14,6 +14,7 @@
  */
 qx.Class.define("minesweeper.window.Main", {
     extend: qx.ui.window.Window,
+    include: qx.locale.MTranslation,
 
     properties: {
         appearance: {
@@ -24,7 +25,7 @@ qx.Class.define("minesweeper.window.Main", {
 
     construct(){
         // noinspection JSAnnotator
-        super("Minesweeper");
+        super(this.tr("Minesweeper"));
         this.set({
             allowMaximize: false,
             resizable: [false, false, false, false]

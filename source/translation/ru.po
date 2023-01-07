@@ -1,0 +1,63 @@
+#: minesweeper/window/Main.js
+msgid "Minesweeper"
+msgstr "Сапер"
+
+#: minesweeper/ToolBar.js
+msgid "Game"
+msgstr "Игра"
+
+#: minesweeper/ToolBar.js
+msgid "New"
+msgstr "Новая"
+
+#: minesweeper/ToolBar.js
+msgid "Difficulty"
+msgstr "Сложность"
+
+#: minesweeper/ToolBar.js
+msgid "Help"
+msgstr "Помощь"
+
+#: minesweeper/ToolBar.js
+msgid "About"
+msgstr "О игре"
+
+#: minesweeper/window/About.js
+msgid "About Minesweeper"
+msgstr "О сапере"
+
+#: minesweeper/window/About.js
+msgid "The application is based on Qooxdoo framework.The goal of the application is demonstration of possibilities of the framework.Any functionality or source code improvement is welcomed."
+msgstr "Приложение сделано на базе фреймворка Qooxdoo. Цель приложения: продемонстрировать возможности фреймворка. Улучшение функциональности и исходного кода приветствуются."
+
+#: minesweeper/ToolBar.js
+msgid "Language"
+msgstr "Язык"
+
+#. NO LONGER USED
+msgid "english"
+msgstr "английский"
+
+#. NO LONGER USED
+msgid "russian"
+msgstr "русский"
+
+#. NO LONGER USED
+msgid "en"
+msgstr "английский"
+
+#. NO LONGER USED
+msgid "ru"
+msgstr "русский"
+
+#. NO LONGER USED
+msgid "low"
+msgstr "Низкая"
+
+#. NO LONGER USED
+msgid "medium"
+msgstr "Средняя"
+
+#. NO LONGER USED
+msgid "hard"
+msgstr "Высокая"

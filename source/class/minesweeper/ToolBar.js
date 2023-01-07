@@ -10,6 +10,7 @@
 
 qx.Class.define("minesweeper.ToolBar", {
     extend: qx.ui.toolbar.ToolBar,
+    include: qx.locale.MTranslation,
 
     construct(){
         // noinspection JSAnnotator
@@ -26,22 +27,26 @@ qx.Class.define("minesweeper.ToolBar", {
         },
 
         __createGameMenu(){
-            const button = new qx.ui.toolbar.MenuButton("Game");
+            const button = new qx.ui.toolbar.MenuButton(this.tr("Game"));
             button.setMenu(this.getGameMenu());
             return button;
         },
 
         getGameMenu() {
             const menu = new qx.ui.menu.Menu();
-            const newButton = new qx.ui.menu.Button("New");
+            const newButton = new qx.ui.menu.Button(this.tr("New"));
             newButton.addListener("execute", function(){
                 minesweeper.Game.getInstance().startNew();
             }, this);
             menu.add(newButton);
 
-            const difficultyButton = new qx.ui.menu.Button("Difficulty");
+            const difficultyButton = new qx.ui.menu.Button(this.tr("Difficulty"));
             difficultyButton.setMenu(this.__createDifficultyMenu());
             menu.add(difficultyButton);
+
+            const languageButton = new qx.ui.menu.Button(this.tr("Language"));
+            languageButton.setMenu(this.__createLanguageMenu());
+            menu.add(languageButton);
 
             return menu;
         },
@@ -51,7 +56,7 @@ qx.Class.define("minesweeper.ToolBar", {
             const difficulties = minesweeper.Game.getDifficulties();
             const difficultyGroup = new qx.ui.form.RadioGroup();
             difficulties.forEach(difficulty => {
-                const capitalized = qx.lang.String.firstUp(difficulty);
+                const capitalized = qx.lang.String.firstUp(qx.locale.Manager.tr(difficulty));
                 const button = new qx.ui.menu.RadioButton(capitalized, null);
                 menu.add(button);
                 difficultyGroup.add(button);
@@ -63,11 +68,30 @@ qx.Class.define("minesweeper.ToolBar", {
             return menu;
         },
 
+        __createLanguageMenu(){
+            const menu = new qx.ui.menu.Menu();
+            const languages = qx.locale.Manager.getInstance().getAvailableLocales();
+            const languageGroup = new qx.ui.form.RadioGroup();
+            languages.forEach(language => {
+                const capitalized = qx.lang.String.firstUp(language);
+                const button = new qx.ui.menu.RadioButton(capitalized, null);
+                menu.add(button);
+                languageGroup.add(button);
+            });
+            languageGroup.addListener("changeValue", function(e){
+                const locale = qx.lang.String.firstLow(e.getData().getLabel());
+                qx.locale.Manager.getInstance().setLocale(locale);
+            }, this);
+            qx.locale.Manager.getInstance().setLocale(qx.lang.String.firstLow(languageGroup.getValue().getLabel()));
+            return menu;
+        },
+
+
         __createAboutMenu(){
-            const menuButton = new qx.ui.toolbar.MenuButton("Help");
+            const menuButton = new qx.ui.toolbar.MenuButton(this.tr("Help"));
             const menu = new qx.ui.menu.Menu();
             menuButton.setMenu(menu);
-            const aboutButton = new qx.ui.menu.Button("About"); 
+            const aboutButton = new qx.ui.menu.Button(this.tr("About"));
             aboutButton.addListener("execute", this._onAboutButton, this);
             menu.add(aboutButton);
             return menuButton;

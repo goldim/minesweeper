@@ -13,10 +13,8 @@ qx.Class.define("minesweeper.window.About", {
 
    construct() {
       // noinspection JSAnnotator
-      super("About Minesweeper");
+      super(this.tr("About Minesweeper"));
       this.set({
-         // centerOnAppear: true,
-         // centerOnContainerResize: true,
          allowMinimize: false,
          allowMaximize: false,
          resizable: false
@@ -46,9 +44,9 @@ qx.Class.define("minesweeper.window.About", {
       },
 
       __getDescription(){
-         return "The application is based on Qooxdoo framework."
+         return this.tr("The application is based on Qooxdoo framework."
          + "The goal of the application is demonstration of possibilities of the framework."
-         + "Any functionality or source code improvement is welcomed.";
+         + "Any functionality or source code improvement is welcomed.");
       }
    }
 });
