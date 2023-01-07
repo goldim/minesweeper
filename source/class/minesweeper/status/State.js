@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.status.State", {
+qx.Class.define("minesweeper.status.State", {
     extend: qx.ui.form.Button,
 
     properties: {

@@ -10,9 +10,9 @@
 
 /**
  * This is an example of a contrib library, providing a very special button
- * @asset(demo/Miner/*)
+ * @asset(minesweeper/*)
  */
-qx.Class.define("demo.Miner.Board", {
+qx.Class.define("minesweeper.Board", {
     extend: qx.ui.container.Composite,
 
     construct(){
@@ -37,7 +37,7 @@ qx.Class.define("demo.Miner.Board", {
 
     members: {
         __setupHandlers(){
-            const game = demo.Miner.Game.getInstance();
+            const game = minesweeper.Game.getInstance();
             game.addListener("changeDifficulty", function(){
                 this.update();
             }, this);
@@ -50,7 +50,7 @@ qx.Class.define("demo.Miner.Board", {
 
         update(){
             this.resetBlocked();
-            const game = demo.Miner.Game.getInstance();
+            const game = minesweeper.Game.getInstance();
             this.__colSize = game.getColumnSize();
             this.__rowSize = game.getRowSize();
             this.__mineCount = game.getMineCount();
@@ -133,7 +133,7 @@ qx.Class.define("demo.Miner.Board", {
 
         __evaluateValues(){
             this.forEverySquare(function(square){
-                if (square instanceof demo.Miner.Square){
+                if (square instanceof minesweeper.Square){
                     const count = this.__getSquareAroundCoords()
                         .filter(function(coords) {
                             return this.checkMine(square.getColumnNo() + coords[0], square.getRowNo() + coords[1])
@@ -145,7 +145,7 @@ qx.Class.define("demo.Miner.Board", {
         },
 
         __isSquare(square){
-            return square instanceof demo.Miner.Square;
+            return square instanceof minesweeper.Square;
         },
 
         checkMine(column, row){
@@ -154,7 +154,7 @@ qx.Class.define("demo.Miner.Board", {
         },
 
         __createSquare(column, row){
-            const square = new demo.Miner.Square().set({width: 32, height: 32});
+            const square = new minesweeper.Square().set({width: 32, height: 32});
             square.setColumnNo(column);
             square.setRowNo(row);
             square.addListener("blast", this._onBlast, this);
@@ -180,17 +180,17 @@ qx.Class.define("demo.Miner.Board", {
 
         __createColoredLabel(value){
             const valueStr = value.toString();
-            const atom = new demo.Miner.OpenedSquare(valueStr);
+            const atom = new minesweeper.OpenedSquare(valueStr);
             atom.addState(`mines-around-${valueStr}`);
             return atom;
         },
 
         __createEmptyLabel(){
-            return new demo.Miner.OpenedSquare(null);
+            return new minesweeper.OpenedSquare(null);
         },
 
         __createMineLabel(){
-            const mine = new demo.Miner.OpenedSquare(null);
+            const mine = new minesweeper.OpenedSquare(null);
             mine.addState("mined");
             return mine;
         },
@@ -208,7 +208,7 @@ qx.Class.define("demo.Miner.Board", {
             }.bind(this));
             if (countRevealedSquares === (this.__colSize * this.__rowSize) - this.__mineCount){
                 this.setBlocked(true);
-                demo.Miner.Game.getInstance().setState("success");
+                minesweeper.Game.getInstance().setState("success");
             }
         },
 
@@ -239,7 +239,7 @@ qx.Class.define("demo.Miner.Board", {
         _onBlast(){
             this.showAllMines();
             this.setBlocked(true);
-            demo.Miner.Game.getInstance().setState("over");
+            minesweeper.Game.getInstance().setState("over");
         }
     }
 });

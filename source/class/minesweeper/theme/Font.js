@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Theme.define("demo.Miner.theme.Font",
+qx.Theme.define("minesweeper.theme.Font",
 {
   extend : qx.theme.classic.Font,
 

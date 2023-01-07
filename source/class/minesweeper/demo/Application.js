@@ -9,9 +9,9 @@
 ************************************************************************ */
 
 /**
- * This is the main application class of "demo.Miner"
+ * This is the main application class of "minesweeper"
  */
-qx.Class.define("demo.Miner.demo.Application", {
+qx.Class.define("minesweeper.demo.Application", {
   extend : qx.application.Standalone,
 
   /*
@@ -42,11 +42,11 @@ qx.Class.define("demo.Miner.demo.Application", {
       qx.theme.iconfont.LoadMaterialIcons;
       const manager = new qx.ui.window.Manager();
       const desktop = new qx.ui.window.Desktop(manager);
-      const mainWin = new demo.Miner.window.Main();
+      const mainWin = new minesweeper.window.Main();
       mainWin.open();
       desktop.add(mainWin);
       this.getRoot().add(desktop, {width: "100%", height: "100%"});
-      demo.Miner.Game.getInstance().startNew();
+      minesweeper.Game.getInstance().startNew();
     }
   }
 });

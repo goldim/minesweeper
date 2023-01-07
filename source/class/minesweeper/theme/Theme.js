@@ -8,13 +8,14 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.OpenedSquare", {
-    extend: qx.ui.basic.Atom,
-
-    properties: {
-        appearance: {
-            init: "opened-square",
-            refine: true
-        }
-    }
+qx.Theme.define("minesweeper.theme.Theme",
+{
+  meta :
+  {
+    color : minesweeper.theme.Color,
+    decoration : minesweeper.theme.Decoration,
+    font : minesweeper.theme.Font,
+    icon : qx.theme.icon.Tango,
+    appearance : minesweeper.theme.Appearance
+  }
 });

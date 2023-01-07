@@ -18,9 +18,9 @@
 
   "applications": [
     {
-      "class": "demo.Miner.demo.Application",
-      "theme": "demo.Miner.theme.Theme",
-      "name": "demo.Miner"
+      "class": "minesweeper.demo.Application",
+      "theme": "minesweeper.theme.Theme",
+      "name": "minesweeper"
     }
   ]
 }

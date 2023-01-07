@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Theme.define("demo.Miner.theme.Appearance",
+qx.Theme.define("minesweeper.theme.Appearance",
 {
   extend : qx.theme.classic.Appearance,
 
@@ -19,7 +19,7 @@ qx.Theme.define("demo.Miner.theme.Appearance",
       alias: "window",
       style(){
         return {
-          icon: demo.Miner.theme.Image.URLS["main-window-icon"]
+          icon: minesweeper.theme.Image.URLS["main-window-icon"]
         }
       }
     },
@@ -57,7 +57,7 @@ qx.Theme.define("demo.Miner.theme.Appearance",
       alias: "button",
       style(states) {
         return {
-          icon: demo.Miner.theme.Image.URLS[
+          icon: minesweeper.theme.Image.URLS[
             states.flagged
               ? "square-flagged"
               : states.questioned
@@ -102,7 +102,7 @@ qx.Theme.define("demo.Miner.theme.Appearance",
 
       style(states){
         return {
-          icon: demo.Miner.theme.Image.URLS[
+          icon: minesweeper.theme.Image.URLS[
               states.start
                   ? "state-button-start"
                   : states.over
@@ -128,7 +128,7 @@ qx.Theme.define("demo.Miner.theme.Appearance",
       style(states){
         let icon = null;
         if (states.mined){
-          icon = demo.Miner.theme.Image.URLS["square-mined"]
+          icon = minesweeper.theme.Image.URLS["square-mined"]
         }
         let textColor = undefined;
 

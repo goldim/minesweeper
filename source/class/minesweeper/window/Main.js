@@ -10,9 +10,9 @@
 
 /**
  * This is an example of a contrib library, providing a very special button
- * @asset(demo/Miner/*)
+ * @asset(minesweeper/*)
  */
-qx.Class.define("demo.Miner.window.Main", {
+qx.Class.define("minesweeper.window.Main", {
     extend: qx.ui.window.Window,
 
     properties: {
@@ -24,7 +24,7 @@ qx.Class.define("demo.Miner.window.Main", {
 
     construct(){
         // noinspection JSAnnotator
-        super("Miner");
+        super("Minesweeper");
         this.set({
             allowMaximize: false,
             resizable: [false, false, false, false],
@@ -35,7 +35,7 @@ qx.Class.define("demo.Miner.window.Main", {
         const topContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());
         const toolbar = this.__createToolBar();
         topContainer.add(toolbar);
-        const statusBar = new demo.Miner.status.Bar();
+        const statusBar = new minesweeper.status.Bar();
         topContainer.add(statusBar);
         this.add(topContainer, {edge: "north"});
         this.__createBoard();
@@ -43,11 +43,11 @@ qx.Class.define("demo.Miner.window.Main", {
 
     members: {
         __createToolBar(){
-            return new demo.Miner.ToolBar();
+            return new minesweeper.ToolBar();
         },
 
         __createBoard(){
-            const board = new demo.Miner.Board();
+            const board = new minesweeper.Board();
             this.add(board, {edge: "center"});
             return board;
         }

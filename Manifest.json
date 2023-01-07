@@ -2,12 +2,12 @@
  "$schema": "https://qooxdoo.org/schema/Manifest-2-0-0.json",
   "info" :
   {
-    "name" : "demo.Miner",
+    "name" : "minesweeper",
 
-    "summary" : "Qooxdoo Miner",
-    "description" : "Qooxdoo Miner Game",
+    "summary" : "Qooxdoo Minesweeper",
+    "description" : "Qooxdoo Minesweeper Game",
 
-    "homepage" : "https://github.com/goldim/demo.Miner",
+    "homepage" : "https://github.com/goldim/minesweeper",
 
     "license" : "MIT license",
     "authors" : [
@@ -22,7 +22,7 @@
 
   "provides" :
   {
-    "namespace"   : "demo.Miner",
+    "namespace"   : "minesweeper",
     "encoding"    : "utf-8",
     "class"       : "source/class",
     "resource"    : "source/resource",

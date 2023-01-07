@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Theme.define("demo.Miner.theme.Decoration",
+qx.Theme.define("minesweeper.theme.Decoration",
 {
   extend : qx.theme.classic.Decoration,
 

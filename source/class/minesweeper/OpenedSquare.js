@@ -8,6 +8,13 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.window.About", {
+qx.Class.define("minesweeper.OpenedSquare", {
+    extend: qx.ui.basic.Atom,
 
+    properties: {
+        appearance: {
+            init: "opened-square",
+            refine: true
+        }
+    }
 });

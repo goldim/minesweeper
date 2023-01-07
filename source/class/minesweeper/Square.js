@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.Square", {
+qx.Class.define("minesweeper.Square", {
     extend: qx.ui.form.Button,
 
     construct(){
@@ -69,14 +69,14 @@ qx.Class.define("demo.Miner.Square", {
             if (this.getBlocked()) {
                 return;
             }
-            const game = demo.Miner.Game.getInstance();
+            const game = minesweeper.Game.getInstance();
 
             if (this.hasState("flagged")){
                 this.replaceState("flagged", "questioned");
                 game.decreaseSpottedMinesByOne();
             } else if (this.hasState("questioned")){
                 this.removeState("questioned");
-            } else if (!(demo.Miner.Game.getInstance().getMinesLeft() === 0 && !this.hasState("flagged"))) {
+            } else if (!(minesweeper.Game.getInstance().getMinesLeft() === 0 && !this.hasState("flagged"))) {
                 this.addState("flagged");
                 game.increaseSpottedMinesByOne();
             }

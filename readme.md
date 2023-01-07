@@ -1,5 +1,5 @@
-# demo.Miner
+# minesweeper
 
-Qooxdoo Miner
+Qooxdoo Minesweeper
 
-Qooxdoo Miner Game
+Qooxdoo Minesweeper Game

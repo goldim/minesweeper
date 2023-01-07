@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.ToolBar", {
+qx.Class.define("minesweeper.ToolBar", {
     extend: qx.ui.toolbar.ToolBar,
 
     construct(){
@@ -33,7 +33,7 @@ qx.Class.define("demo.Miner.ToolBar", {
             const menu = new qx.ui.menu.Menu();
             const newButton = new qx.ui.menu.Button("New");
             newButton.addListener("execute", function(){
-                demo.Miner.Game.getInstance().startNew();
+                minesweeper.Game.getInstance().startNew();
             }, this);
             menu.add(newButton);
 
@@ -46,7 +46,7 @@ qx.Class.define("demo.Miner.ToolBar", {
 
         __createDifficultyMenu(){
             const menu = new qx.ui.menu.Menu();
-            const difficulties = demo.Miner.Game.getDifficulties();
+            const difficulties = minesweeper.Game.getDifficulties();
             const difficultyGroup = new qx.ui.form.RadioGroup();
             difficulties.forEach(difficulty => {
                 const capitalized = qx.lang.String.firstUp(difficulty);
@@ -56,7 +56,7 @@ qx.Class.define("demo.Miner.ToolBar", {
             });
             difficultyGroup.addListener("changeValue", function(e){
                 const value = qx.lang.String.firstLow(e.getData().getLabel());
-                demo.Miner.Game.getInstance().setDifficulty(value);
+                minesweeper.Game.getInstance().setDifficulty(value);
             }, this);
             return menu;
         },

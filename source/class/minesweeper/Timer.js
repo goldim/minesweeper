@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.Timer", {
+qx.Class.define("minesweeper.Timer", {
     extend: qx.core.Object,
 
     construct(){

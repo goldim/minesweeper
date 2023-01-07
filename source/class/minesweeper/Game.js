@@ -8,14 +8,14 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.Game", {
+qx.Class.define("minesweeper.Game", {
     extend: qx.core.Object,
     type: "singleton",
 
     construct(){
         // noinspection JSAnnotator
         super();
-        this.__timer = new demo.Miner.Timer();
+        this.__timer = new minesweeper.Timer();
     },
 
     properties: {
@@ -28,7 +28,7 @@ qx.Class.define("demo.Miner.Game", {
         difficulty: {
             init: "low",
             check: function(value) {
-                return demo.Miner.Game.getDifficulties().includes(value);
+                return minesweeper.Game.getDifficulties().includes(value);
             },
             event: "changeDifficulty",
             apply: "_applyDifficulty"
@@ -64,7 +64,7 @@ qx.Class.define("demo.Miner.Game", {
         },
 
         getDifficulties(){
-            return Object.keys(demo.Miner.Game.DIFFICULTY_OPTIONS);
+            return Object.keys(minesweeper.Game.DIFFICULTY_OPTIONS);
         }
     },
 

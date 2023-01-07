@@ -8,7 +8,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("demo.Miner.status.Bar", {
+qx.Class.define("minesweeper.status.Bar", {
     extend: qx.ui.container.Composite,
 
     construct(){
@@ -55,14 +55,14 @@ qx.Class.define("demo.Miner.status.Bar", {
 
     members: {
         __createComponents() {
-            const game = demo.Miner.Game.getInstance();
+            const game = minesweeper.Game.getInstance();
 
             const minesLeftLabel = new qx.ui.basic.Atom();
             minesLeftLabel.setAppearance("status-label");
             game.bind("minesLeft", minesLeftLabel, "label", {converter: this.constructor.addTrailingZeros});
             this.__createComponent("left", "west", minesLeftLabel);
 
-            const state = new demo.Miner.status.State();
+            const state = new minesweeper.status.State();
             game.bind("state", state, "status");
             state.addListener("execute", function(){
                 game.startNew();

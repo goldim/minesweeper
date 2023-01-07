@@ -8,14 +8,6 @@
 
 ************************************************************************ */
 
-qx.Theme.define("demo.Miner.theme.Theme",
-{
-  meta :
-  {
-    color : demo.Miner.theme.Color,
-    decoration : demo.Miner.theme.Decoration,
-    font : demo.Miner.theme.Font,
-    icon : qx.theme.icon.Tango,
-    appearance : demo.Miner.theme.Appearance
-  }
+qx.Class.define("minesweeper.window.About", {
+
 });
