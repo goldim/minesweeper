@@ -1,5 +1,32 @@
 {
   "dependencies": {
     "@qooxdoo/framework": "7.3.3"
-  }
+  },
+  "name": "minesweeper",
+  "description": "![Qooxdoo Minesweeper Window](minesweeper.png)",
+  "version": "0.1.0",
+  "main": "index.js",
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx qx compile",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goldim/minesweeper.git"
+  },
+  "keywords": [
+    "qooxdoo",
+    "minesweeper"
+  ],
+  "author": "Dmitrii Zolotov (goldim)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goldim/minesweeper/issues"
+  },
+  "homepage": "./"
 }
