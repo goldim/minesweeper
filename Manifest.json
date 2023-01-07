@@ -30,6 +30,6 @@
   },
 
   "requires": {
-    "@qooxdoo/framework": "7.3.3"
+    "@qooxdoo/framework": "~7.3.3"
   }
 }
