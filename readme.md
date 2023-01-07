@@ -10,7 +10,12 @@ A player selects a cell to open it. If a player opens a mined cell, the game end
 
 ## Implementation Details
 
-There are three difficult levels:
+### Difficult levels:
 - low (9x9, 10 mines),
 - medium (16x16, 40 mines),
 - hard (30x16, 99 mines).
+
+### Language Support
+- English
+- Russian
+The language can be changed via settings at runtime.
