@@ -27,9 +27,7 @@ qx.Class.define("minesweeper.window.Main", {
         super("Minesweeper");
         this.set({
             allowMaximize: false,
-            resizable: [false, false, false, false],
-            centerOnAppear: true,
-            centerOnContainerResize: true
+            resizable: [false, false, false, false]
         });
         this.setLayout(new qx.ui.layout.Dock());
         const topContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());

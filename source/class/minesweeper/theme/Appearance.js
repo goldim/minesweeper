@@ -19,7 +19,69 @@ qx.Theme.define("minesweeper.theme.Appearance",
       alias: "window",
       style(){
         return {
+          alignX: "center",
+          alignY: "middle",
           icon: minesweeper.theme.Image.URLS["main-window-icon"]
+        }
+      }
+    },
+
+    "about-window": {
+      include: "window",
+      alias: "window",
+      style(){
+        return {
+          alignX: "center",
+          alignY: "middle",
+          icon: minesweeper.theme.Image.URLS["about-window-icon"],
+          width: 300
+        }
+      }
+    },
+
+    "about-window/maximize-button": {
+      style(){
+        return {
+          opacity: 0
+        }
+      }
+    },
+
+    "about-window/minimize-button": {
+      style(){
+        return {
+          opacity: 0
+        }
+      }
+    },
+
+    "about-window/description": {
+      include: "atom",
+      alias: "atom",
+      style(){
+        return {
+          icon: minesweeper.theme.Image.URLS["main-window-icon"],
+          padding: 5
+        }
+      }
+    },
+
+    "about-window/description/icon": {
+      style(){
+        return {
+          scale: true,
+          width: 64,
+          height: 64
+        }
+      }
+    },
+
+    "about-window/description/label": {
+      include: "label",
+      alias: "label",
+      style(){
+        return {
+          textAlign: "left"
         }
       }
     },

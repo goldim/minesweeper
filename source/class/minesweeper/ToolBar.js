@@ -15,6 +15,8 @@ qx.Class.define("minesweeper.ToolBar", {
         // noinspection JSAnnotator
         super();
         this.__createComponents();
+        this.__aboutWindow = new minesweeper.window.About();
+        minesweeper.window.Desktop.getInstance().add(this.__aboutWindow);
     },
 
     members: {
@@ -62,7 +64,17 @@ qx.Class.define("minesweeper.ToolBar", {
         },
 
         __createAboutMenu(){
-            return new qx.ui.toolbar.MenuButton("Help");
+            const menuButton = new qx.ui.toolbar.MenuButton("Help");
+            const menu = new qx.ui.menu.Menu();
+            menuButton.setMenu(menu);
+            const aboutButton = new qx.ui.menu.Button("About"); 
+            aboutButton.addListener("execute", this._onAboutButton, this);
+            menu.add(aboutButton);
+            return menuButton;
+        },
+
+        _onAboutButton(){
+            this.__aboutWindow.open();
         }
     }
 });
