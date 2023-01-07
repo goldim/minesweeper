@@ -1,0 +1,24 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "Class",
+    "define",
+    "extend",
+    "ui",
+    "window",
+    "Desktop",
+    "type",
+    "minesweeper"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/source/class/minesweeper/window/Desktop.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   Copyright: 2023 Dmitrii Zolotov\n\n   License: MIT license\n\n   Authors: Dmitrii Zolotov (goldim) zolotovdy@yandex.ru\n\n************************************************************************ */\n\nqx.Class.define(\"minesweeper.window.Desktop\", {\n    extend: qx.ui.window.Desktop,\n    type: \"singleton\"\n});\n"
+  ],
+  "mappings": ";;;;;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;EAEAH,EAAE,CAACI,KAAH,CAASC,MAAT,CAAgB,4BAAhB,EAA8C;IAC1CC,MAAM,EAAEN,EAAE,CAACO,EAAH,CAAMC,MAAN,CAAaC,OADqB;IAE1CC,IAAI,EAAE;EAFoC,CAA9C;EAVAC,WAAW,CAACH,MAAZ,CAAmBC,OAAnB,CAA2BN,aAA3B,GAA2CA,aAA3C"
+}

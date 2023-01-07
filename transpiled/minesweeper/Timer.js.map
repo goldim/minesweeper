@@ -1,0 +1,40 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "Class",
+    "define",
+    "extend",
+    "core",
+    "Object",
+    "construct",
+    "__timer",
+    "event",
+    "Timer",
+    "addListener",
+    "__updateTime",
+    "destruct",
+    "stop",
+    "dispose",
+    "properties",
+    "time",
+    "init",
+    "check",
+    "members",
+    "setTime",
+    "getTime",
+    "start",
+    "resetTime",
+    "minesweeper"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/source/class/minesweeper/Timer.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   Copyright: 2023 Dmitrii Zolotov\n\n   License: MIT license\n\n   Authors: Dmitrii Zolotov (goldim) zolotovdy@yandex.ru\n\n************************************************************************ */\n\nqx.Class.define(\"minesweeper.Timer\", {\n    extend: qx.core.Object,\n\n    construct() {\n        // noinspection JSAnnotator\n        super();\n        this.__timer = new qx.event.Timer(1000);\n        this.__timer.addListener(\"interval\", this.__updateTime, this);\n    },\n\n    destruct() {\n        this.__timer.stop();\n        this.__timer.dispose();\n    },\n\n    properties: {\n        time: {\n            init: 0,\n            check: \"Integer\",\n            event: \"changeTime\"\n        }\n    },\n\n    members: {\n        __updateTime() {\n            this.setTime(this.getTime() + 1);\n        },\n\n        start() {\n            this.resetTime();\n            this.__timer.start();\n        },\n\n        stop() {\n            this.__timer.stop();\n        }\n    }\n});\n"
+  ],
+  "mappings": ";;;;;;;;;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;EAEAH,EAAE,CAACI,KAAH,CAASC,MAAT,CAAgB,mBAAhB,EAAqC;IACjCC,MAAM,EAAEN,EAAE,CAACO,IAAH,CAAQC,MADiB;IAGjCC,SAHiC,uBAGrB;MACR;MACA;MACA,KAAKC,eAAL,GAAe,IAAIV,EAAE,CAACW,KAAH,CAASC,KAAb,CAAmB,IAAnB,CAAf;;MACA,KAAKF,eAAL,CAAaG,WAAb,CAAyB,UAAzB,EAAqC,KAAKC,oBAA1C,EAAwD,IAAxD;IACH,CARgC;IAUjCC,QAViC,sBAUtB;MACP,KAAKL,eAAL,CAAaM,IAAb;;MACA,KAAKN,eAAL,CAAaO,OAAb;IACH,CAbgC;IAejCC,UAAU,EAAE;MACRC,IAAI,EAAE;QACFC,IAAI,EAAE,CADJ;QAEFC,KAAK,EAAE,SAFL;QAGFV,KAAK,EAAE;MAHL;IADE,CAfqB;IAuBjCW,OAAO,EAAE;MACLR,oBADK,kCACU;QACX,KAAKS,OAAL,CAAa,KAAKC,OAAL,KAAiB,CAA9B;MACH,CAHI;MAKLC,KALK,mBAKG;QACJ,KAAKC,SAAL;;QACA,KAAKhB,eAAL,CAAae,KAAb;MACH,CARI;MAULT,IAVK,kBAUE;QACH,KAAKN,eAAL,CAAaM,IAAb;MACH;IAZI;EAvBwB,CAArC;EAVAW,WAAW,CAACf,KAAZ,CAAkBT,aAAlB,GAAkCA,aAAlC"
+}

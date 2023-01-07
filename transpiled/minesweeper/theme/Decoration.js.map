@@ -1,0 +1,28 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "Theme",
+    "define",
+    "extend",
+    "theme",
+    "classic",
+    "Decoration",
+    "decorations",
+    "style",
+    "width",
+    "color",
+    "include",
+    "minesweeper"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/source/class/minesweeper/theme/Decoration.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   Copyright: 2023 Dmitrii Zolotov\n\n   License: MIT license\n\n   Authors: Dmitrii Zolotov (goldim) zolotovdy@yandex.ru\n\n************************************************************************ */\n\nqx.Theme.define(\"minesweeper.theme.Decoration\",\n{\n  extend : qx.theme.classic.Decoration,\n\n  decorations :\n  {\n    \"opened-square-bordered\": {\n      style: {\n        width: [0, 1, 1, 0],\n        style: \"solid\",\n        color: \"gray\"\n      }\n    },\n\n    \"status-label-bordered\": {\n      style: {\n        width: 2,\n        style: \"solid\",\n        color: \"red\"\n      }\n    },\n\n    \"status-bar-bordered\": {\n      include: \"inset\"\n    }\n  }\n});\n"
+  ],
+  "mappings": ";;;;;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;EAEAH,EAAE,CAACI,KAAH,CAASC,MAAT,CAAgB,8BAAhB,EACA;IACEC,MAAM,EAAGN,EAAE,CAACO,KAAH,CAASC,OAAT,CAAiBC,UAD5B;IAGEC,WAAW,EACX;MACE,0BAA0B;QACxBC,KAAK,EAAE;UACLC,KAAK,EAAE,CAAC,CAAD,EAAI,CAAJ,EAAO,CAAP,EAAU,CAAV,CADF;UAELD,KAAK,EAAE,OAFF;UAGLE,KAAK,EAAE;QAHF;MADiB,CAD5B;MASE,yBAAyB;QACvBF,KAAK,EAAE;UACLC,KAAK,EAAE,CADF;UAELD,KAAK,EAAE,OAFF;UAGLE,KAAK,EAAE;QAHF;MADgB,CAT3B;MAiBE,uBAAuB;QACrBC,OAAO,EAAE;MADY;IAjBzB;EAJF,CADA;EAVAC,WAAW,CAACR,KAAZ,CAAkBE,UAAlB,CAA6BN,aAA7B,GAA6CA,aAA7C"
+}

@@ -1,0 +1,43 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "define",
+    "extend",
+    "Error",
+    "construct",
+    "failMessage",
+    "uri",
+    "lineNumber",
+    "columnNumber",
+    "sourceException",
+    "inst",
+    "call",
+    "stack",
+    "stacktrace",
+    "__failMessage",
+    "__uri",
+    "__lineNumber",
+    "undefined",
+    "__columnNumber",
+    "__sourceException",
+    "members",
+    "toString",
+    "getUri",
+    "getLineNumber",
+    "getColumnNumber",
+    "getSourceException",
+    "core",
+    "WindowError"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/node_modules/@qooxdoo/framework/source/class/qx/core/WindowError.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   qooxdoo - the new era of web development\n\n   http://qooxdoo.org\n\n   Copyright:\n     2007-2008 1&1 Internet AG, Germany, http://www.1und1.de\n\n   License:\n     MIT: https://opensource.org/licenses/MIT\n     See the LICENSE file in the project's top-level directory for details.\n\n   Authors:\n     * Fabian Jakobs (fjakobs)\n\n************************************************************************ */\n\n/**\n * This exception is thrown by the {@link qx.event.GlobalError} handler if a\n * <code>window.onerror</code> event occurs in the browser.\n */\nqx.Bootstrap.define(\"qx.core.WindowError\", {\n  extend: Error,\n\n  /*\n  *****************************************************************************\n     CONSTRUCTOR\n  *****************************************************************************\n  */\n\n  /**\n   * @param failMessage {String} The error message\n   * @param uri {String} URI where error was raised\n   * @param lineNumber {Integer} The line number where the error was raised\n   * @param columnNumber {Integer} The column number where the error was raised\n   * @param sourceException {Error} orginal error\n   */\n  construct(failMessage, uri, lineNumber, columnNumber, sourceException) {\n    var inst = sourceException || Error.call(this, failMessage);\n    // map stack trace properties since they're not added by Error's constructor\n    if (inst.stack) {\n      this.stack = inst.stack;\n    }\n    if (inst.stacktrace) {\n      this.stacktrace = inst.stacktrace;\n    }\n\n    this.__failMessage = failMessage;\n    this.__uri = uri || \"\";\n    this.__lineNumber = lineNumber === undefined ? -1 : lineNumber;\n    this.__columnNumber = columnNumber === undefined ? -1 : columnNumber;\n    this.__sourceException = sourceException;\n  },\n\n  /*\n  *****************************************************************************\n     MEMBERS\n  *****************************************************************************\n  */\n\n  members: {\n    __failMessage: null,\n    __uri: null,\n    __lineNumber: null,\n    __columnNumber: null,\n    __sourceException: null,\n\n    /**\n     * Returns the error message.\n     *\n     * @return {String} error message\n     */\n    toString() {\n      return this.__failMessage;\n    },\n\n    /**\n     * Get the URI where error was raised\n     *\n     * @return {String} URI where error was raised\n     */\n    getUri() {\n      return this.__uri;\n    },\n\n    /**\n     * Get the line number where the error was raised\n     *\n     * @return {Integer} The line number where the error was raised\n     */\n    getLineNumber() {\n      return this.__lineNumber;\n    },\n\n    /**\n     * Get the column number where the error was raised\n     *\n     * @return {Integer} The line number where the error was raised\n     */\n    getColumnNumber() {\n      return this.__columnNumber;\n    },\n\n    /**\n     * Get the source exception\n     *\n     * @return {Error} The source error\n     */\n    getSourceException() {\n      return this.__sourceException;\n    }\n  }\n});\n"
+  ],
+  "mappings": ";;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;EAEA;AACA;AACA;AACA;EACAH,EAAE,CAACC,SAAH,CAAaG,MAAb,CAAoB,qBAApB,EAA2C;IACzCC,MAAM,EAAEC,KADiC;;IAGzC;AACF;AACA;AACA;AACA;;IAEE;AACF;AACA;AACA;AACA;AACA;AACA;IACEC,SAhByC,qBAgB/BC,WAhB+B,EAgBlBC,GAhBkB,EAgBbC,UAhBa,EAgBDC,YAhBC,EAgBaC,eAhBb,EAgB8B;MACrE,IAAIC,IAAI,GAAGD,eAAe,IAAIN,KAAK,CAACQ,IAAN,CAAW,IAAX,EAAiBN,WAAjB,CAA9B,CADqE,CAErE;;MACA,IAAIK,IAAI,CAACE,KAAT,EAAgB;QACd,KAAKA,KAAL,GAAaF,IAAI,CAACE,KAAlB;MACD;;MACD,IAAIF,IAAI,CAACG,UAAT,EAAqB;QACnB,KAAKA,UAAL,GAAkBH,IAAI,CAACG,UAAvB;MACD;;MAED,KAAKC,qBAAL,GAAqBT,WAArB;MACA,KAAKU,aAAL,GAAaT,GAAG,IAAI,EAApB;MACA,KAAKU,oBAAL,GAAoBT,UAAU,KAAKU,SAAf,GAA2B,CAAC,CAA5B,GAAgCV,UAApD;MACA,KAAKW,sBAAL,GAAsBV,YAAY,KAAKS,SAAjB,GAA6B,CAAC,CAA9B,GAAkCT,YAAxD;MACA,KAAKW,yBAAL,GAAyBV,eAAzB;IACD,CA/BwC;;IAiCzC;AACF;AACA;AACA;AACA;IAEEW,OAAO,EAAE;MACPN,qBAAa,EAAE,IADR;MAEPC,aAAK,EAAE,IAFA;MAGPC,oBAAY,EAAE,IAHP;MAIPE,sBAAc,EAAE,IAJT;MAKPC,yBAAiB,EAAE,IALZ;;MAOP;AACJ;AACA;AACA;AACA;MACIE,QAZO,sBAYI;QACT,OAAO,KAAKP,qBAAZ;MACD,CAdM;;MAgBP;AACJ;AACA;AACA;AACA;MACIQ,MArBO,oBAqBE;QACP,OAAO,KAAKP,aAAZ;MACD,CAvBM;;MAyBP;AACJ;AACA;AACA;AACA;MACIQ,aA9BO,2BA8BS;QACd,OAAO,KAAKP,oBAAZ;MACD,CAhCM;;MAkCP;AACJ;AACA;AACA;AACA;MACIQ,eAvCO,6BAuCW;QAChB,OAAO,KAAKN,sBAAZ;MACD,CAzCM;;MA2CP;AACJ;AACA;AACA;AACA;MACIO,kBAhDO,gCAgDc;QACnB,OAAO,KAAKN,yBAAZ;MACD;IAlDM;EAvCgC,CAA3C;EAtBAtB,EAAE,CAAC6B,IAAH,CAAQC,WAAR,CAAoB3B,aAApB,GAAoCA,aAApC"
+}

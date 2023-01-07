@@ -1,0 +1,26 @@
+{
+  "className": "minesweeper.theme.Font",
+  "packageName": "minesweeper.theme",
+  "name": "Font",
+  "superClass": "qx.theme.classic.Font",
+  "interfaces": [],
+  "mixins": [],
+  "functionName": null,
+  "clazz": {
+    "location": {
+      "start": {
+        "line": 11,
+        "column": 0,
+        "index": 273
+      },
+      "end": {
+        "line": 22,
+        "column": 3,
+        "index": 445
+      }
+    },
+    "jsdoc": {}
+  },
+  "type": "theme",
+  "descendants": []
+}

@@ -1,0 +1,26 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "Theme",
+    "define",
+    "extend",
+    "theme",
+    "classic",
+    "Font",
+    "fonts",
+    "include",
+    "size",
+    "minesweeper"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/source/class/minesweeper/theme/Font.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   Copyright: 2023 Dmitrii Zolotov\n\n   License: MIT license\n\n   Authors: Dmitrii Zolotov (goldim) zolotovdy@yandex.ru\n\n************************************************************************ */\n\nqx.Theme.define(\"minesweeper.theme.Font\",\n{\n  extend : qx.theme.classic.Font,\n\n  fonts :\n  {\n    \"square-danger\": {\n      include: \"monospace\",\n      size: 20\n    }\n  }\n});\n"
+  ],
+  "mappings": ";;;;;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;EAEAH,EAAE,CAACI,KAAH,CAASC,MAAT,CAAgB,wBAAhB,EACA;IACEC,MAAM,EAAGN,EAAE,CAACO,KAAH,CAASC,OAAT,CAAiBC,IAD5B;IAGEC,KAAK,EACL;MACE,iBAAiB;QACfC,OAAO,EAAE,WADM;QAEfC,IAAI,EAAE;MAFS;IADnB;EAJF,CADA;EAVAC,WAAW,CAACN,KAAZ,CAAkBE,IAAlB,CAAuBN,aAAvB,GAAuCA,aAAvC"
+}

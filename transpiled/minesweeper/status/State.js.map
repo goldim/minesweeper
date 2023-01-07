@@ -1,0 +1,38 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "Class",
+    "define",
+    "extend",
+    "ui",
+    "form",
+    "Button",
+    "properties",
+    "status",
+    "init",
+    "check",
+    "event",
+    "apply",
+    "appearance",
+    "refine",
+    "members",
+    "_applyStatus",
+    "value",
+    "oldValue",
+    "addState",
+    "replaceState",
+    "minesweeper",
+    "State"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/source/class/minesweeper/status/State.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   Copyright: 2023 Dmitrii Zolotov\n\n   License: MIT license\n\n   Authors: Dmitrii Zolotov (goldim) zolotovdy@yandex.ru\n\n************************************************************************ */\n\nqx.Class.define(\"minesweeper.status.State\", {\n    extend: qx.ui.form.Button,\n\n    properties: {\n        status: {\n            init: \"start\",\n            check: [\"start\", \"over\", \"success\"],\n            event: \"changeState\",\n            apply: \"_applyStatus\"\n        },\n\n        appearance: {\n            init: \"state-button\",\n            refine: true\n        }\n    },\n\n    members: {\n        _applyStatus(value, oldValue) {\n            if (!oldValue) {\n                this.addState(value);\n            } else {\n                this.replaceState(oldValue, value);\n            }\n        }\n    }\n});\n"
+  ],
+  "mappings": ";;;;;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;EAEAH,EAAE,CAACI,KAAH,CAASC,MAAT,CAAgB,0BAAhB,EAA4C;IACxCC,MAAM,EAAEN,EAAE,CAACO,EAAH,CAAMC,IAAN,CAAWC,MADqB;IAGxCC,UAAU,EAAE;MACRC,MAAM,EAAE;QACJC,IAAI,EAAE,OADF;QAEJC,KAAK,EAAE,CAAC,OAAD,EAAU,MAAV,EAAkB,SAAlB,CAFH;QAGJC,KAAK,EAAE,aAHH;QAIJC,KAAK,EAAE;MAJH,CADA;MAQRC,UAAU,EAAE;QACRJ,IAAI,EAAE,cADE;QAERK,MAAM,EAAE;MAFA;IARJ,CAH4B;IAiBxCC,OAAO,EAAE;MACLC,YADK,wBACQC,KADR,EACeC,QADf,EACyB;QAC1B,IAAI,CAACA,QAAL,EAAe;UACX,KAAKC,QAAL,CAAcF,KAAd;QACH,CAFD,MAEO;UACH,KAAKG,YAAL,CAAkBF,QAAlB,EAA4BD,KAA5B;QACH;MACJ;IAPI;EAjB+B,CAA5C;EAVAI,WAAW,CAACb,MAAZ,CAAmBc,KAAnB,CAAyBtB,aAAzB,GAAyCA,aAAzC"
+}

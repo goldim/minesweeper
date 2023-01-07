@@ -1,0 +1,50 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "Class",
+    "define",
+    "extend",
+    "application",
+    "Standalone",
+    "members",
+    "main",
+    "log",
+    "appender",
+    "Native",
+    "Console",
+    "theme",
+    "iconfont",
+    "LoadMaterialIcons",
+    "manager",
+    "ui",
+    "window",
+    "Manager",
+    "desktop",
+    "minesweeper",
+    "Desktop",
+    "getInstance",
+    "setWindowManager",
+    "mainWin",
+    "Main",
+    "open",
+    "add",
+    "getRoot",
+    "width",
+    "height",
+    "Game",
+    "startNew",
+    "demo",
+    "Application"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/source/class/minesweeper/demo/Application.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   Copyright: 2023 Dmitrii Zolotov\n\n   License: MIT license\n\n   Authors: Dmitrii Zolotov (goldim) zolotovdy@yandex.ru\n\n************************************************************************ */\n\n/**\n * This is the main application class of \"minesweeper\"\n */\nqx.Class.define(\"minesweeper.demo.Application\", {\n  extend : qx.application.Standalone,\n\n  /*\n  *****************************************************************************\n     MEMBERS\n  *****************************************************************************\n  */\n\n  members :  {\n    /**\n     * This method contains the initial application code and gets called\n     * during startup of the application\n     *\n     * @lint ignoreDeprecated(alert)\n     */\n    main() {\n      // Call super class\n      super.main();\n\n      // Enable logging in debug variant\n      if (qx.core.Environment.get(\"qx.debug\")) {\n        // support native logging capabilities, e.g. Firebug for Firefox\n        qx.log.appender.Native;\n        // support additional cross-browser console. Press F7 to toggle visibility\n        qx.log.appender.Console;\n      }\n\n      qx.theme.iconfont.LoadMaterialIcons;\n      const manager = new qx.ui.window.Manager();\n      const desktop = minesweeper.window.Desktop.getInstance();\n      desktop.setWindowManager(manager);\n      const mainWin = new minesweeper.window.Main();\n      mainWin.open();\n      desktop.add(mainWin);\n      this.getRoot().add(desktop, {width: \"100%\", height: \"100%\"});\n      minesweeper.Game.getInstance().startNew();\n    }\n  }\n});\n"
+  ],
+  "mappings": ";;;;;;;;;;;;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;EAEA;AACA;AACA;EACAH,EAAE,CAACI,KAAH,CAASC,MAAT,CAAgB,8BAAhB,EAAgD;IAC9CC,MAAM,EAAGN,EAAE,CAACO,WAAH,CAAeC,UADsB;;IAG9C;AACF;AACA;AACA;AACA;IAEEC,OAAO,EAAI;MACT;AACJ;AACA;AACA;AACA;AACA;MACIC,IAPS,kBAOF;QACL;QACA,kEAFK,CAIL;;QACyC;UACvC;UACAV,EAAE,CAACW,GAAH,CAAOC,QAAP,CAAgBC,MAAhB,CAFuC,CAGvC;;UACAb,EAAE,CAACW,GAAH,CAAOC,QAAP,CAAgBE,OAAhB;QACD;QAEDd,EAAE,CAACe,KAAH,CAASC,QAAT,CAAkBC,iBAAlB;QACA,IAAMC,OAAO,GAAG,IAAIlB,EAAE,CAACmB,EAAH,CAAMC,MAAN,CAAaC,OAAjB,EAAhB;QACA,IAAMC,OAAO,GAAGC,WAAW,CAACH,MAAZ,CAAmBI,OAAnB,CAA2BC,WAA3B,EAAhB;QACAH,OAAO,CAACI,gBAAR,CAAyBR,OAAzB;QACA,IAAMS,OAAO,GAAG,IAAIJ,WAAW,CAACH,MAAZ,CAAmBQ,IAAvB,EAAhB;QACAD,OAAO,CAACE,IAAR;QACAP,OAAO,CAACQ,GAAR,CAAYH,OAAZ;QACA,KAAKI,OAAL,GAAeD,GAAf,CAAmBR,OAAnB,EAA4B;UAACU,KAAK,EAAE,MAAR;UAAgBC,MAAM,EAAE;QAAxB,CAA5B;QACAV,WAAW,CAACW,IAAZ,CAAiBT,WAAjB,GAA+BU,QAA/B;MACD;IA5BQ;EATmC,CAAhD;EAbAZ,WAAW,CAACa,IAAZ,CAAiBC,WAAjB,CAA6BlC,aAA7B,GAA6CA,aAA7C"
+}

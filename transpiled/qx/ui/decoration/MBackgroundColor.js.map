@@ -1,0 +1,42 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "Mixin",
+    "define",
+    "properties",
+    "backgroundColor",
+    "check",
+    "nullable",
+    "apply",
+    "members",
+    "_styleBackgroundColor",
+    "styles",
+    "bgcolor",
+    "getBackgroundColor",
+    "core",
+    "Environment",
+    "get",
+    "theme",
+    "manager",
+    "Color",
+    "getInstance",
+    "resolve",
+    "_applyBackgroundColor",
+    "_isInitialized",
+    "Error",
+    "ui",
+    "decoration",
+    "MBackgroundColor"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/node_modules/@qooxdoo/framework/source/class/qx/ui/decoration/MBackgroundColor.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   qooxdoo - the new era of web development\n\n   http://qooxdoo.org\n\n   Copyright:\n     2004-2010 1&1 Internet AG, Germany, http://www.1und1.de\n\n   License:\n     MIT: https://opensource.org/licenses/MIT\n     See the LICENSE file in the project's top-level directory for details.\n\n   Authors:\n     * Martin Wittemann (martinwittemann)\n\n************************************************************************ */\n/**\n * Mixin responsible for setting the background color of a widget.\n * This mixin is usually used by {@link qx.ui.decoration.Decorator}.\n */\nqx.Mixin.define(\"qx.ui.decoration.MBackgroundColor\", {\n  properties: {\n    /** Color of the background */\n    backgroundColor: {\n      check: \"Color\",\n      nullable: true,\n      apply: \"_applyBackgroundColor\"\n    }\n  },\n\n  members: {\n    /**\n     * Adds the background-color styles to the given map\n     * @param styles {Map} CSS style map\n     */\n    _styleBackgroundColor(styles) {\n      var bgcolor = this.getBackgroundColor();\n\n      if (bgcolor && qx.core.Environment.get(\"qx.theme\")) {\n        bgcolor = qx.theme.manager.Color.getInstance().resolve(bgcolor);\n      }\n\n      if (bgcolor) {\n        styles[\"background-color\"] = bgcolor;\n      }\n    },\n\n    // property apply\n    _applyBackgroundColor() {\n      if (qx.core.Environment.get(\"qx.debug\")) {\n        if (this._isInitialized()) {\n          throw new Error(\n            \"This decorator is already in-use. Modification is not possible anymore!\"\n          );\n        }\n      }\n    }\n  }\n});\n"
+  ],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;EACA;AACA;AACA;AACA;EACAH,EAAE,CAACI,KAAH,CAASC,MAAT,CAAgB,mCAAhB,EAAqD;IACnDC,UAAU,EAAE;MACV;MACAC,eAAe,EAAE;QACfC,KAAK,EAAE,OADQ;QAEfC,QAAQ,EAAE,IAFK;QAGfC,KAAK,EAAE;MAHQ;IAFP,CADuC;IAUnDC,OAAO,EAAE;MACP;AACJ;AACA;AACA;MACIC,qBALO,iCAKeC,MALf,EAKuB;QAC5B,IAAIC,OAAO,GAAG,KAAKC,kBAAL,EAAd;;QAEA,IAAID,OAAO,IAAId,EAAE,CAACgB,IAAH,CAAQC,WAAR,CAAoBC,GAApB,CAAwB,UAAxB,CAAf,EAAoD;UAClDJ,OAAO,GAAGd,EAAE,CAACmB,KAAH,CAASC,OAAT,CAAiBC,KAAjB,CAAuBC,WAAvB,GAAqCC,OAArC,CAA6CT,OAA7C,CAAV;QACD;;QAED,IAAIA,OAAJ,EAAa;UACXD,MAAM,CAAC,kBAAD,CAAN,GAA6BC,OAA7B;QACD;MACF,CAfM;MAiBP;MACAU,qBAlBO,mCAkBiB;QACmB;UACvC,IAAI,KAAKC,cAAL,EAAJ,EAA2B;YACzB,MAAM,IAAIC,KAAJ,CACJ,yEADI,CAAN;UAGD;QACF;MACF;IA1BM;EAV0C,CAArD;EArBA1B,EAAE,CAAC2B,EAAH,CAAMC,UAAN,CAAiBC,gBAAjB,CAAkC1B,aAAlC,GAAkDA,aAAlD"
+}

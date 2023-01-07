@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "Class",
+    "define",
+    "extend",
+    "ui",
+    "menu",
+    "AbstractButton",
+    "construct",
+    "label",
+    "icon",
+    "command",
+    "getContentElement",
+    "setAttribute",
+    "setLabel",
+    "setIcon",
+    "setCommand",
+    "setMenu",
+    "properties",
+    "appearance",
+    "refine",
+    "init",
+    "members",
+    "_onTap",
+    "e",
+    "isLeftPressed",
+    "getMenu",
+    "execute",
+    "open",
+    "Button"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/node_modules/@qooxdoo/framework/source/class/qx/ui/menu/Button.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   qooxdoo - the new era of web development\n\n   http://qooxdoo.org\n\n   Copyright:\n     2004-2008 1&1 Internet AG, Germany, http://www.1und1.de\n\n   License:\n     MIT: https://opensource.org/licenses/MIT\n     See the LICENSE file in the project's top-level directory for details.\n\n   Authors:\n     * Sebastian Werner (wpbasti)\n     * Fabian Jakobs (fjakobs)\n\n************************************************************************ */\n\n/**\n * The real menu button class which supports a command and an icon. All\n * other features are inherited from the {@link qx.ui.menu.AbstractButton}\n * class.\n */\nqx.Class.define(\"qx.ui.menu.Button\", {\n  extend: qx.ui.menu.AbstractButton,\n\n  /*\n  *****************************************************************************\n     CONSTRUCTOR\n  *****************************************************************************\n  */\n\n  /**\n   * @param label {String} Initial label\n   * @param icon {String} Initial icon\n   * @param command {qx.ui.command.Command} Initial command (shortcut)\n   * @param menu {qx.ui.menu.Menu} Initial sub menu\n   */\n  construct(label, icon, command, menu) {\n    super();\n\n    // ARIA attrs\n    this.getContentElement().setAttribute(\"role\", \"button\");\n\n    // Initialize with incoming arguments\n    if (label != null) {\n      this.setLabel(label);\n    }\n\n    if (icon != null) {\n      this.setIcon(icon);\n    }\n\n    if (command != null) {\n      this.setCommand(command);\n    }\n\n    if (menu != null) {\n      this.setMenu(menu);\n    }\n  },\n\n  /*\n  *****************************************************************************\n     PROPERTIES\n  *****************************************************************************\n  */\n\n  properties: {\n    // overridden\n    appearance: {\n      refine: true,\n      init: \"menu-button\"\n    }\n  },\n\n  /*\n  *****************************************************************************\n     MEMBERS\n  *****************************************************************************\n  */\n\n  members: {\n    /*\n    ---------------------------------------------------------------------------\n      EVENT HANDLER\n    ---------------------------------------------------------------------------\n    */\n\n    // overridden\n    _onTap(e) {\n      if (e.isLeftPressed() && this.getMenu()) {\n        this.execute();\n        // don't close menus if the button is a sub menu button\n        this.getMenu().open();\n        return;\n      }\n\n      super._onTap(e);\n    }\n  }\n});\n"
+  ],
+  "mappings": ";;;;;;;;;;;;;EAAAA,EAAE,CAACC,SAAH,CAAaC,oBAAb,CAAkCC,aAAlC;;EAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;EAEA;AACA;AACA;AACA;AACA;EACAH,EAAE,CAACI,KAAH,CAASC,MAAT,CAAgB,mBAAhB,EAAqC;IACnCC,MAAM,EAAEN,EAAE,CAACO,EAAH,CAAMC,IAAN,CAAWC,cADgB;;IAGnC;AACF;AACA;AACA;AACA;;IAEE;AACF;AACA;AACA;AACA;AACA;IACEC,SAfmC,qBAezBC,KAfyB,EAelBC,IAfkB,EAeZC,OAfY,EAeHL,IAfG,EAeG;MACpC,iDADoC,CAGpC;;MACA,KAAKM,iBAAL,GAAyBC,YAAzB,CAAsC,MAAtC,EAA8C,QAA9C,EAJoC,CAMpC;;MACA,IAAIJ,KAAK,IAAI,IAAb,EAAmB;QACjB,KAAKK,QAAL,CAAcL,KAAd;MACD;;MAED,IAAIC,IAAI,IAAI,IAAZ,EAAkB;QAChB,KAAKK,OAAL,CAAaL,IAAb;MACD;;MAED,IAAIC,OAAO,IAAI,IAAf,EAAqB;QACnB,KAAKK,UAAL,CAAgBL,OAAhB;MACD;;MAED,IAAIL,IAAI,IAAI,IAAZ,EAAkB;QAChB,KAAKW,OAAL,CAAaX,IAAb;MACD;IACF,CArCkC;;IAuCnC;AACF;AACA;AACA;AACA;IAEEY,UAAU,EAAE;MACV;MACAC,UAAU,EAAE;QACVC,MAAM,EAAE,IADE;QAEVC,IAAI,EAAE;MAFI;IAFF,CA7CuB;;IAqDnC;AACF;AACA;AACA;AACA;IAEEC,OAAO,EAAE;MACP;AACJ;AACA;AACA;AACA;MAEI;MACAC,MARO,kBAQAC,CARA,EAQG;QACR,IAAIA,CAAC,CAACC,aAAF,MAAqB,KAAKC,OAAL,EAAzB,EAAyC;UACvC,KAAKC,OAAL,GADuC,CAEvC;;UACA,KAAKD,OAAL,GAAeE,IAAf;UACA;QACD;;QAED,yDAAaJ,CAAb;MACD;IAjBM;EA3D0B,CAArC;EAxBA1B,EAAE,CAACO,EAAH,CAAMC,IAAN,CAAWuB,MAAX,CAAkB5B,aAAlB,GAAkCA,aAAlC"
+}

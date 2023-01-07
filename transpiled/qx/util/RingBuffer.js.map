@@ -1,0 +1,52 @@
+{
+  "version": 3,
+  "names": [
+    "qx",
+    "Bootstrap",
+    "executePendingDefers",
+    "$$dbClassInfo",
+    "define",
+    "extend",
+    "Object",
+    "construct",
+    "maxEntries",
+    "setMaxEntries",
+    "members",
+    "__nextIndexToStoreTo",
+    "__entriesStored",
+    "__isMarkActive",
+    "__entriesStoredSinceMark",
+    "__entries",
+    "__maxEntries",
+    "clear",
+    "getMaxEntries",
+    "addEntry",
+    "entry",
+    "__addToIndex",
+    "max",
+    "getNumEntriesStored",
+    "mark",
+    "clearMark",
+    "getAllEntries",
+    "getEntries",
+    "count",
+    "startingFromMark",
+    "indexOfYoungestElementInHistory",
+    "startIndex",
+    "result",
+    "slice",
+    "concat",
+    "Array",
+    "idx",
+    "addMe",
+    "util",
+    "RingBuffer"
+  ],
+  "sources": [
+    "C:/qx/minesweeper/node_modules/@qooxdoo/framework/source/class/qx/util/RingBuffer.js"
+  ],
+  "sourcesContent": [
+    "/* ************************************************************************\n\n   qooxdoo - the new era of web development\n\n   http://qooxdoo.org\n\n   Copyright:\n     2006 STZ-IDA, Germany, http://www.stz-ida.de\n     2009 1&1 Internet AG, Germany, http://www.1und1.de\n\n   License:\n     MIT: https://opensource.org/licenses/MIT\n     See the LICENSE file in the project's top-level directory for details.\n\n   Authors:\n     * Carsten Lergenmueller (carstenl)\n     * Fabian Jakobs (fjakobs)\n\n************************************************************************ */\n\n/**\n * An memory container which stores arbitrary data up to a maximum number of\n * entries. When new entries come in an the maximum is reached, the oldest\n * entries are deleted.\n *\n * A mark feature also exists which can be used to remember a point in time.\n * When retrieving entries, it is possible to get only those entries\n * after the marked time. This is useful if data from the buffer is extracted\n * and processed. Whenever this happens, a mark() call can be used so that the\n * next extraction will only get new data.\n */\nqx.Bootstrap.define(\"qx.util.RingBuffer\", {\n  extend: Object,\n\n  /**\n   * Constructor.\n   *\n   * @param maxEntries {Integer ? 50} Maximum number of entries in the buffer\n   */\n  construct(maxEntries) {\n    this.setMaxEntries(maxEntries || 50);\n  },\n\n  members: {\n    //Next slot in ringbuffer to use\n    __nextIndexToStoreTo: 0,\n\n    //Number of elements in ring buffer\n    __entriesStored: 0,\n\n    //Was a mark set?\n    __isMarkActive: false,\n\n    //How many elements were stored since setting of mark?\n    __entriesStoredSinceMark: 0,\n\n    //ring buffer\n    __entries: null,\n\n    //Maximum number of messages to store. Could be converted to a qx property.\n    __maxEntries: null,\n\n    /**\n     * Set the maximum number of messages to hold. If null the number of\n     * messages is not limited.\n     *\n     * Warning: Changing this property will clear the events logged so far.\n     *\n     * @param maxEntries {Integer} the maximum number of messages to hold\n     */\n    setMaxEntries(maxEntries) {\n      this.__maxEntries = maxEntries;\n      this.clear();\n    },\n\n    /**\n     * Get the maximum number of entries to hold\n     *\n     * @return {Integer}\n     */\n    getMaxEntries() {\n      return this.__maxEntries;\n    },\n\n    /**\n     * Adds a single entry\n     *\n     * @param entry {var} The data to store\n     */\n    addEntry(entry) {\n      this.__entries[this.__nextIndexToStoreTo] = entry;\n\n      this.__nextIndexToStoreTo = this.__addToIndex(\n        this.__nextIndexToStoreTo,\n        1\n      );\n\n      //Count # of stored entries\n      var max = this.getMaxEntries();\n      if (this.__entriesStored < max) {\n        this.__entriesStored++;\n      }\n\n      //Count # of stored elements since last mark call\n      if (this.__isMarkActive && this.__entriesStoredSinceMark < max) {\n        this.__entriesStoredSinceMark++;\n      }\n    },\n\n    /**\n     * Returns the number of entries stored\n     * @return {Integer}\n     */\n    getNumEntriesStored() {\n      return this.__entriesStored;\n    },\n\n    /**\n     * Remembers the current position in the ring buffer\n     *\n     */\n    mark() {\n      this.__isMarkActive = true;\n      this.__entriesStoredSinceMark = 0;\n    },\n\n    /**\n     * Removes the current mark position\n     */\n    clearMark() {\n      this.__isMarkActive = false;\n    },\n\n    /**\n     * Returns all stored entries. Mark is ignored.\n     *\n     * @return {Array} array of stored entries\n     */\n    getAllEntries() {\n      return this.getEntries(this.getMaxEntries(), false);\n    },\n\n    /**\n     * Returns entries which have been added previously.\n     *\n     * @param count {Integer} The number of entries to retrieve. If there are\n     *    more entries than the given count, the oldest ones will not be returned.\n     *\n     * @param startingFromMark {Boolean ? false} If true, only entries since\n     *   the last call to mark() will be returned\n     * @return {Array} array of stored entries\n     */\n    getEntries(count, startingFromMark) {\n      //Trim count so it does not exceed ringbuffer size\n      if (count > this.__entriesStored) {\n        count = this.__entriesStored;\n      }\n\n      // Trim count so it does not exceed last call to mark (if mark was called\n      // and startingFromMark was true)\n      if (\n        startingFromMark &&\n        this.__isMarkActive &&\n        count > this.__entriesStoredSinceMark\n      ) {\n        count = this.__entriesStoredSinceMark;\n      }\n\n      if (count > 0) {\n        var indexOfYoungestElementInHistory = this.__addToIndex(\n          this.__nextIndexToStoreTo,\n          -1\n        );\n\n        var startIndex = this.__addToIndex(\n          indexOfYoungestElementInHistory,\n          -count + 1\n        );\n\n        var result;\n\n        if (startIndex <= indexOfYoungestElementInHistory) {\n          //Requested segment not wrapping around ringbuffer boundary, get in one run\n          result = this.__entries.slice(\n            startIndex,\n            indexOfYoungestElementInHistory + 1\n          );\n        } else {\n          //Requested segment wrapping around ringbuffer boundary, get two parts & concat\n          result = this.__entries\n            .slice(startIndex, this.__entriesStored)\n            .concat(\n              this.__entries.slice(0, indexOfYoungestElementInHistory + 1)\n            );\n        }\n      } else {\n        result = [];\n      }\n\n      return result;\n    },\n\n    /**\n     * Clears all entries\n     */\n    clear() {\n      this.__entries = new Array(this.getMaxEntries());\n      this.__entriesStored = 0;\n      this.__entriesStoredSinceMark = 0;\n      this.__nextIndexToStoreTo = 0;\n    },\n\n    /**\n     * Adds a number to an ringbuffer index. Does a modulus calculation,\n     * i. e. if the index leaves the ringbuffer space it will wrap around to\n     * the other end of the ringbuffer.\n     *\n     * @param idx {Number} The current index.\n     * @param addMe {Number} The number to add.\n     * @return {Number} The new index\n     */\n    __addToIndex(idx, addMe) {\n      var max = this.getMaxEntries();\n      var result = (idx + addMe) % max;\n\n      //If negative, wrap up into the ringbuffer space\n      if (result < 0) {\n        result += max;\n      }\n      return result;\n    }\n  }\n});\n"
+  ],
+  "mappings": "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"
+}
