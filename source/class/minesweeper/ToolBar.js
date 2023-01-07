@@ -56,7 +56,7 @@ qx.Class.define("minesweeper.ToolBar", {
             const difficulties = minesweeper.Game.getDifficulties();
             const difficultyGroup = new qx.ui.form.RadioGroup();
             difficulties.forEach(difficulty => {
-                const capitalized = qx.lang.String.firstUp(qx.locale.Manager.tr(difficulty));
+                const capitalized = qx.lang.String.firstUp(difficulty);
                 const button = new qx.ui.menu.RadioButton(capitalized, null);
                 menu.add(button);
                 difficultyGroup.add(button);
