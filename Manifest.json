@@ -1,34 +1,26 @@
 {
- "$schema": "https://qooxdoo.org/schema/Manifest-2-0-0.json",
-  "info" :
-  {
-    "name" : "minesweeper",
-
-    "summary" : "Qooxdoo Minesweeper",
-    "description" : "Qooxdoo Minesweeper Game",
-
-    "homepage" : "https://github.com/goldim/minesweeper",
-
-    "license" : "MIT license",
-    "authors" : [
-  {
-    "name": "Dmitrii Zolotov (goldim)",
-    "email": "zolotovdy@yandex.ru"
-  }
-],
-
-    "version" : "0.1.0"
+  "$schema": "https://qooxdoo.org/schema/Manifest-2-0-0.json",
+  "info": {
+    "name": "minesweeper",
+    "summary": "Qooxdoo Minesweeper",
+    "description": "Qooxdoo Minesweeper Game",
+    "homepage": "https://github.com/goldim/minesweeper",
+    "license": "MIT license",
+    "authors": [
+      {
+        "name": "Dmitrii Zolotov (goldim)",
+        "email": "zolotovdy@yandex.ru"
+      }
+    ],
+    "version": "0.1.1"
   },
-
-  "provides" :
-  {
-    "namespace"   : "minesweeper",
-    "encoding"    : "utf-8",
-    "class"       : "source/class",
-    "resource"    : "source/resource",
-    "translation" : "source/translation"
+  "provides": {
+    "namespace": "minesweeper",
+    "encoding": "utf-8",
+    "class": "source/class",
+    "resource": "source/resource",
+    "translation": "source/translation"
   },
-
   "requires": {
     "@qooxdoo/framework": "~7.3.3"
   }
