@@ -38,8 +38,6 @@ qx.Class.define("minesweeper.demo.Application", {
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
       }
-
-      qx.theme.iconfont.LoadMaterialIcons;
       
       const desktop = minesweeper.window.Desktop.getInstance();
       this.getRoot().add(desktop, {width: "100%", height: "100%"});

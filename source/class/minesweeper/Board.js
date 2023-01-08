@@ -8,10 +8,6 @@
 
 ************************************************************************ */
 
-/**
- * This is an example of a contrib library, providing a very special button
- * @asset(minesweeper/*)
- */
 qx.Class.define("minesweeper.Board", {
     extend: qx.ui.container.Composite,
 
