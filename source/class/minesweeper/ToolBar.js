@@ -16,8 +16,6 @@ qx.Class.define("minesweeper.ToolBar", {
         // noinspection JSAnnotator
         super();
         this.__createComponents();
-        this.__aboutWindow = new minesweeper.window.About();
-        minesweeper.window.Desktop.getInstance().add(this.__aboutWindow);
     },
 
     members: {
@@ -98,7 +96,7 @@ qx.Class.define("minesweeper.ToolBar", {
         },
 
         _onAboutButton() {
-            this.__aboutWindow.open();
+            minesweeper.window.Desktop.getInstance().openAboutWindow();
         }
     }
 });

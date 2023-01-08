@@ -40,12 +40,8 @@ qx.Class.define("minesweeper.demo.Application", {
       }
 
       qx.theme.iconfont.LoadMaterialIcons;
-      const manager = new qx.ui.window.Manager();
+      
       const desktop = minesweeper.window.Desktop.getInstance();
-      desktop.setWindowManager(manager);
-      const mainWin = new minesweeper.window.Main();
-      mainWin.open();
-      desktop.add(mainWin);
       this.getRoot().add(desktop, {width: "100%", height: "100%"});
       minesweeper.Game.getInstance().startNew();
     }

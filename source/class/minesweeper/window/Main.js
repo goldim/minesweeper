@@ -16,13 +16,6 @@ qx.Class.define("minesweeper.window.Main", {
     extend: qx.ui.window.Window,
     include: qx.locale.MTranslation,
 
-    properties: {
-        appearance: {
-            init: "main-window",
-            refine: true
-        }
-    },
-
     construct() {
         // noinspection JSAnnotator
         super(this.tr("Minesweeper"));
@@ -38,6 +31,13 @@ qx.Class.define("minesweeper.window.Main", {
         topContainer.add(statusBar);
         this.add(topContainer, {edge: "north"});
         this.__createBoard();
+    },
+
+    properties: {
+        appearance: {
+            init: "main-window",
+            refine: true
+        }
     },
 
     members: {
