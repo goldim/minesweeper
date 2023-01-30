@@ -38,7 +38,10 @@ qx.Class.define("minesweeper.demo.Application", {
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
       }
-      
+
+      const currentTheme = qx.theme.manager.Meta.getInstance().getTheme();
+      minesweeper.ThemeChanger.setTheme(currentTheme);
+
       const desktop = minesweeper.window.Desktop.getInstance();
       this.getRoot().add(desktop, {width: "100%", height: "100%"});
       minesweeper.Game.getInstance().startNew();

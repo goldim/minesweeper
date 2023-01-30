@@ -46,6 +46,11 @@ qx.Class.define("minesweeper.ToolBar", {
             languageButton.setMenu(this.__createLanguageMenu());
             menu.add(languageButton);
 
+
+            const themeButton = new qx.ui.menu.Button(this.tr("Theme"));
+            themeButton.setMenu(this.__createThemeMenu());
+            menu.add(themeButton);
+
             return menu;
         },
 
@@ -81,6 +86,23 @@ qx.Class.define("minesweeper.ToolBar", {
                 qx.locale.Manager.getInstance().setLocale(locale);
             }, this);
             qx.locale.Manager.getInstance().setLocale(qx.lang.String.firstLow(languageGroup.getValue().getLabel()));
+            return menu;
+        },
+
+        __createThemeMenu() {
+            const menu = new qx.ui.menu.Menu();
+            const themes = ["classic", "indigo"];
+            const themeGroup = new qx.ui.form.RadioGroup();
+            themes.forEach(language => {
+                const capitalized = qx.lang.String.firstUp(language);
+                const button = new qx.ui.menu.RadioButton(capitalized, null);
+                menu.add(button);
+                themeGroup.add(button);
+            });
+            themeGroup.addListener("changeValue", function(e) {
+                const themeName = qx.lang.String.firstLow(e.getData().getLabel());
+                minesweeper.ThemeChanger.setThemeByStringName(themeName);
+            }, this);
             return menu;
         },
 

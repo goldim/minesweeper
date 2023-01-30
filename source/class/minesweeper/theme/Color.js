@@ -10,8 +10,6 @@
 
 qx.Theme.define("minesweeper.theme.Color",
 {
-  extend : qx.theme.classic.Color,
-
   colors :
   {
     "mines-around-1": "blue",

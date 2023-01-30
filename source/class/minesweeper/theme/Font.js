@@ -10,12 +10,10 @@
 
 qx.Theme.define("minesweeper.theme.Font",
 {
-  extend : qx.theme.classic.Font,
-
   fonts :
   {
     "square-danger": {
-      include: "monospace",
+      family: ["DejaVu Sans Mono", "Courier New", "monospace"],
       size: 20
     }
   }

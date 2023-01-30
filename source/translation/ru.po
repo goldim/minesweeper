@@ -34,6 +34,10 @@ msgstr "Приложение сделано на базе фреймворка Q
 msgid "Language"
 msgstr "Язык"
 
+#: minesweeper/ToolBar.js
+msgid "Theme"
+msgstr "Тема"
+
 #. NO LONGER USED
 msgid "english"
 msgstr "английский"

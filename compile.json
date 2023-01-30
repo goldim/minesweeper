@@ -19,7 +19,7 @@
   "applications": [
     {
       "class": "minesweeper.demo.Application",
-      "theme": "minesweeper.theme.Theme",
+      "theme": "qx.theme.Classic",
       "name": "minesweeper"
     }
   ]

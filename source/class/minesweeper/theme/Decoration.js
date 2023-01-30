@@ -10,8 +10,6 @@
 
 qx.Theme.define("minesweeper.theme.Decoration",
 {
-  extend : qx.theme.classic.Decoration,
-
   decorations :
   {
     "opened-square-bordered": {

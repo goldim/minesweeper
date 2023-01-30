@@ -10,8 +10,6 @@
 
 qx.Theme.define("minesweeper.theme.Appearance",
 {
-  extend : qx.theme.classic.Appearance,
-
   appearances :
   {
     "main-window": {
@@ -144,7 +142,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
     },
 
     "status-label": {
-      include: "atom",
+      // include: "atom",
       alias: "atom",
       style() {
         return {
@@ -159,7 +157,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
     },
 
     "state-button": {
-      include: "button",
+      // include: "button",
       alias: "button",
 
       style(states) {
