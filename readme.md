@@ -18,6 +18,7 @@ A player selects a cell to open it. If a player opens a mined cell, the game end
 ### Language Support
 - English
 - Russian
+
 The language can be changed via settings at runtime.
 
 ## Todo list
