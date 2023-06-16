@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@qooxdoo/framework": "7.3.3"
+    "@qooxdoo/framework": "^7.6.0"
   },
   "name": "minesweeper",
   "description": "![Qooxdoo Minesweeper Window](minesweeper.png)",

@@ -8,6 +8,9 @@
 
 ************************************************************************ */
 
+/**
+ * @usefont(MaterialIcons)
+ */
 qx.Class.define("minesweeper.theme.Image", {
     extend: qx.core.Object,
 
