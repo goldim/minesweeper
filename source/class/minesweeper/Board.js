@@ -12,7 +12,6 @@ qx.Class.define("minesweeper.Board", {
     extend: qx.ui.container.Composite,
 
     construct() {
-        // noinspection JSAnnotator
         super();
         this.setLayout(new qx.ui.layout.Grid());
         this.__setupHandlers();
@@ -213,8 +212,8 @@ qx.Class.define("minesweeper.Board", {
                 return;
             }
             if (this.__attended.some(coords => coords.column === column && coords.row === row)) {
- return; 
-}
+                return; 
+            }
             this.__attended.push({column, row});
             const square = this.getLayout().getCellWidget(row, column);
             if (this.__isSquare(square)) {

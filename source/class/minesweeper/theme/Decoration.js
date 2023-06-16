@@ -12,7 +12,7 @@ qx.Theme.define("minesweeper.theme.Decoration",
 {
   decorations :
   {
-    "opened-square-bordered": {
+    "square-opened-bordered": {
       style: {
         width: [0, 1, 1, 0],
         style: "solid",

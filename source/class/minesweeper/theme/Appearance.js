@@ -184,7 +184,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
       }
     },
 
-    "opened-square": {
+    "square-opened": {
       style(states) {
         let icon = null;
         if (states.mined) {
@@ -211,7 +211,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
       }
     },
 
-    "opened-square/icon": {
+    "square-opened/icon": {
       style() {
         return {
           scale: true,
@@ -221,7 +221,7 @@ qx.Theme.define("minesweeper.theme.Appearance",
       }
     },
 
-    "opened-square/label": {
+    "square-opened/label": {
       style() {
         return {
           textAlign: "center",

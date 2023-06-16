@@ -13,7 +13,7 @@ qx.Class.define("minesweeper.OpenedSquare", {
 
     properties: {
         appearance: {
-            init: "opened-square",
+            init: "square-opened",
             refine: true
         }
     }
