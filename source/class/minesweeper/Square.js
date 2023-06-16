@@ -12,7 +12,6 @@ qx.Class.define("minesweeper.Square", {
     extend: qx.ui.form.Button,
 
     construct() {
-        // noinspection JSAnnotator
         super("");
         this.addListener("contextmenu", this._onRightClick, this);
         this.addListener("execute", this._onExecute, this);

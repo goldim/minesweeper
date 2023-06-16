@@ -12,8 +12,7 @@ qx.Class.define("minesweeper.Board", {
     extend: qx.ui.container.Composite,
 
     construct() {
-        super();
-        this.setLayout(new qx.ui.layout.Grid());
+        super(new qx.ui.layout.Grid());
         this.__setupHandlers();
     },
 
