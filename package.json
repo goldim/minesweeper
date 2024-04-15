@@ -4,7 +4,7 @@
   },
   "name": "minesweeper",
   "description": "![Qooxdoo Minesweeper Window](minesweeper.png)",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "devDependencies": {
     "gh-pages": "^4.0.0"
